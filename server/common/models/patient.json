@@ -1,0 +1,72 @@
+{
+  "name": "Patient",
+  "plural": "Patients",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "middleName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "age": {
+      "type": "number",
+      "required": true
+    },
+    "gender": {
+      "type": "string",
+      "required": true
+    },
+    "civilStatus": {
+      "type": "string",
+      "required": true
+    },
+    "occupation": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "birthDate": {
+      "type": "date",
+      "required": true
+    },
+    "refferedBy": {
+      "type": "string"
+    },
+    "contactNumber": {
+      "type": "number",
+      "required": true
+    },
+    "dateRegistered": {
+      "type": "date",
+      "required": true
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
