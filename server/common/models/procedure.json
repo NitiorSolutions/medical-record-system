@@ -1,0 +1,38 @@
+{
+  "name": "Procedure",
+  "plural": "Procedures",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "fee": {
+      "type": "number",
+      "default": 0
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

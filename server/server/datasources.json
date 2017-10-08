@@ -1,6 +1,12 @@
 {
   "db": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "mrs",
+    "password": "",
     "name": "db",
-    "connector": "memory"
+    "user": "",
+    "connector": "mongodb"
   }
 }

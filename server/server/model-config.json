@@ -34,5 +34,29 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "Medicine": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Prescription": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Procedure": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Consultation": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Treatment": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Patient": {
+    "dataSource": "db",
+    "public": true
   }
 }

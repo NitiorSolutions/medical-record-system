@@ -1,0 +1,51 @@
+{
+  "name": "Treatment",
+  "plural": "Treatments",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "patient": {
+      "type": "string",
+      "required": true
+    },
+    "complaint": {
+      "type": "string",
+      "required": true
+    },
+    "procedure": {
+      "type": "string",
+      "required": true
+    },
+    "toothNumber": {
+      "type": "number"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "balance": {
+      "type": "number"
+    },
+    "remarks": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

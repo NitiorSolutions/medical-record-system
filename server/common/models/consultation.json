@@ -1,0 +1,40 @@
+{
+  "name": "Consultation",
+  "plural": "Consultations",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "patient": {
+      "type": "string",
+      "required": true
+    },
+    "payment": {
+      "type": "number"
+    },
+    "balance": {
+      "type": "number"
+    },
+    "remarks": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
