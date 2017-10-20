@@ -7,6 +7,11 @@ import AddMedicine from './components/crud/medicines/AddMedicine';
 import EditMedicine from './components/crud/medicines/EditMedicine';
 import MedicineTable from './components/crud/medicines/MedicineTable';
 
+import PatientDetails from './components/crud/patients/PatientDetails';
+import AddPatient from './components/crud/patients/AddPatient';
+import EditPatient from './components/crud/patients/EditPatient';
+import PatientTable from './components/crud/patients/PatientTable';
+
 import {
   Switch,
   Route
@@ -17,6 +22,12 @@ class Modules extends Component{
     return(
       <div>
           <Menu stackable pointing >
+          <NavLink
+            className="item"
+            activeClassName="active"
+            to="/modules/patients">
+            Patients
+          </NavLink>
             <NavLink
               className="item"
               activeClassName="active"
@@ -27,6 +38,11 @@ class Modules extends Component{
           </Menu>
 
           <Switch>
+            <Route exact path="/modules/patients" component={PatientTable} />
+            <Route exact path='/modules/patients/add' component={AddPatient} />
+            <Route exact path='/modules/patients/edit/:id' component={EditPatient} />
+            <Route exact path="/modules/patients/:id" component={PatientDetails} />
+
             <Route exact path="/modules/medicines" component={MedicineTable} />
             <Route exact path='/modules/medicines/add' component={AddMedicine} />
             <Route exact path='/modules/medicines/edit/:id' component={EditMedicine} />

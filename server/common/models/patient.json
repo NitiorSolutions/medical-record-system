@@ -41,7 +41,7 @@
       "type": "string"
     },
     "contactNumber": {
-      "type": "number",
+      "type": "string",
       "required": true
     },
     "dateRegistered": {
