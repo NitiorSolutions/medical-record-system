@@ -13,7 +13,6 @@ class Home extends Component{
           Signin to get started.
         </p>
         <Image src='logo.png' className='module-icon'/>
-
       </div>
     );
   }

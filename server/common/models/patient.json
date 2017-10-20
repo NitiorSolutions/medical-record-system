@@ -6,15 +6,11 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "Timestamp": {}
+  },
   "properties": {
-    "firstName": {
-      "type": "string",
-      "required": true
-    },
-    "middleName": {
-      "type": "string"
-    },
-    "lastName": {
+    "name": {
       "type": "string",
       "required": true
     },
