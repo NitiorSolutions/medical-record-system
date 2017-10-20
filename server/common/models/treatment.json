@@ -37,14 +37,6 @@
     "active": {
       "type": "boolean",
       "default": true
-    },
-    "created": {
-      "type": "date",
-      "required": true
-    },
-    "modified": {
-      "type": "date",
-      "required": true
     }
   },
   "validations": [],
