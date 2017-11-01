@@ -4,7 +4,8 @@
   "description": "Medical Record System",
   "dependencies": {
     "foreman": "^2.0.0",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "semantic-ui-react": "^0.75.0"
   },
   "devDependencies": {},
   "scripts": {

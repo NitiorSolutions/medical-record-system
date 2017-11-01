@@ -6,15 +6,11 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "Timestamp": {}
+  },
   "properties": {
-    "firstName": {
-      "type": "string",
-      "required": true
-    },
-    "middleName": {
-      "type": "string"
-    },
-    "lastName": {
+    "name": {
       "type": "string",
       "required": true
     },
@@ -45,7 +41,7 @@
       "type": "string"
     },
     "contactNumber": {
-      "type": "number",
+      "type": "string",
       "required": true
     },
     "dateRegistered": {
@@ -55,14 +51,6 @@
     "active": {
       "type": "boolean",
       "default": true
-    },
-    "created": {
-      "type": "date",
-      "required": true
-    },
-    "modified": {
-      "type": "date",
-      "required": true
     }
   },
   "validations": [],
