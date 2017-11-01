@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import { Button, Confirm, Grid, Segment, Table } from 'semantic-ui-react';
 // import EmployerEmployeesTable from './EmployerEmployeesTable';
 import constants from '../../../../../../constants';
+import './patients.css';
 
 class PatientDetails extends Component{
   constructor(props){
@@ -74,15 +75,19 @@ class PatientDetails extends Component{
     const { open, currentUrl } = this.state;
     const birthDate = moment(this.state.details.birthDate).format('MMMM Do YYYY');
     const dateRegistered = moment(this.state.details.dateRegistered).format('MMMM Do YYYY');
+    const backUrl = `${currentUrl}/${this.props.match.params.id}`;
     return (
      <Segment>
        <Grid>
          <Grid.Row>
            <Grid.Column width={1}>
-             <Link className='ui primary button' to={currentUrl}>Back</Link>
+             <Link className='ui primary button' to={backUrl}>Back</Link>
            </Grid.Column>
            <Grid.Column width={15}>
-             <h1>{this.state.details.name}</h1>
+             <h1>
+              {this.state.details.name}
+            </h1>
+
              <Table definition>
                <Table.Body>
                  <Table.Row>

@@ -7,6 +7,7 @@ import AddMedicine from './components/crud/medicines/AddMedicine';
 import EditMedicine from './components/crud/medicines/EditMedicine';
 import MedicineTable from './components/crud/medicines/MedicineTable';
 
+import PatientMasterDetails from './components/crud/patients/PatientMasterDetails';
 import PatientDetails from './components/crud/patients/PatientDetails';
 import AddPatient from './components/crud/patients/AddPatient';
 import EditPatient from './components/crud/patients/EditPatient';
@@ -40,8 +41,9 @@ class Modules extends Component{
           <Switch>
             <Route exact path="/modules/patients" component={PatientTable} />
             <Route exact path='/modules/patients/add' component={AddPatient} />
+            <Route exact path='/modules/patients/details/:id' component={PatientDetails} />
             <Route exact path='/modules/patients/edit/:id' component={EditPatient} />
-            <Route exact path="/modules/patients/:id" component={PatientDetails} />
+            <Route exact path="/modules/patients/:id" component={PatientMasterDetails} />
 
             <Route exact path="/modules/medicines" component={MedicineTable} />
             <Route exact path='/modules/medicines/add' component={AddMedicine} />
