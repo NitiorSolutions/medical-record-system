@@ -18,7 +18,7 @@ class MedicineRow extends Component {
     });
 
     return (
-      <Table.Row onClick={() => this.onRowClick(this.props.data.id)}>
+      <Table.Row onClick={() => this.onRowClick(this.props.data.medicineId)}>
         { rows }
       </Table.Row>
     );

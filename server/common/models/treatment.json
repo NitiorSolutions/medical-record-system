@@ -10,6 +10,15 @@
     "Timestamp": {}
   },
   "properties": {
+    "treatmentId": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "defaultFn": "uuidv4",
+      "mongodb": {
+        "columnName": "_id"
+      }
+    },
     "patient": {
       "type": "string",
       "required": true

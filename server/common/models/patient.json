@@ -2,7 +2,7 @@
   "name": "Patient",
   "plural": "Patients",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
@@ -10,6 +10,15 @@
     "Timestamp": {}
   },
   "properties": {
+    "patientId": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "defaultFn": "uuidv4",
+      "mongodb": {
+        "columnName": "_id"
+      }
+    },
     "name": {
       "type": "string",
       "required": true
@@ -54,7 +63,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "consultations": {
+      "type": "hasMany",
+      "model": "Consultation",
+      "foreignKey": "patientId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

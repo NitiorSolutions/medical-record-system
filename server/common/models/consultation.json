@@ -2,7 +2,7 @@
   "name": "Consultation",
   "plural": "Consultations",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
@@ -10,9 +10,14 @@
     "Timestamp": {}
   },
   "properties": {
-    "patient": {
+    "consultationId": {
       "type": "string",
-      "required": true
+      "id": true,
+      "required": true,
+      "defaultFn": "uuidv4",
+      "mongodb": {
+        "columnName": "_id"
+      }
     },
     "payment": {
       "type": "number"
