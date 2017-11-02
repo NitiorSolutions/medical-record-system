@@ -68,6 +68,16 @@
       "type": "hasMany",
       "model": "Consultation",
       "foreignKey": "patientId"
+    },
+    "treatments": {
+      "type": "hasMany",
+      "model": "Treatment",
+      "foreignKey": "patientId"
+    },
+    "prescriptions": {
+      "type": "hasMany",
+      "model": "Prescription",
+      "foreignKey": "patientId"
     }
   },
   "acls": [],

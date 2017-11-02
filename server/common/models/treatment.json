@@ -19,15 +19,7 @@
         "columnName": "_id"
       }
     },
-    "patient": {
-      "type": "string",
-      "required": true
-    },
     "complaint": {
-      "type": "string",
-      "required": true
-    },
-    "procedure": {
       "type": "string",
       "required": true
     },
@@ -49,7 +41,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "procedures": {
+      "type": "hasMany",
+      "model": "Procedure",
+      "foreignKey": "treatmentId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

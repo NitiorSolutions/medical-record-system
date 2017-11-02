@@ -19,14 +19,6 @@
         "columnName": "_id"
       }
     },
-    "patient": {
-      "type": "string",
-      "required": true
-    },
-    "medicine": {
-      "type": "string",
-      "required": true
-    },
     "quantity": {
       "type": "number",
       "required": true
@@ -40,7 +32,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "medicines": {
+      "type": "hasMany",
+      "model": "Medicine",
+      "foreignKey": "prescriptionId"
+    }
+  },
   "acls": [],
   "methods": {}
 }
