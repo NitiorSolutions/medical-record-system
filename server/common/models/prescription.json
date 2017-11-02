@@ -34,7 +34,7 @@
   "validations": [],
   "relations": {
     "medicines": {
-      "type": "hasMany",
+      "type": "hasOne",
       "model": "Medicine",
       "foreignKey": "prescriptionId"
     }

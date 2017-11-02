@@ -43,7 +43,7 @@
   "validations": [],
   "relations": {
     "procedures": {
-      "type": "hasMany",
+      "type": "hasOne",
       "model": "Procedure",
       "foreignKey": "treatmentId"
     }
