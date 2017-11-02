@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
-import { Button, Grid, Segment } from 'semantic-ui-react';
-// import EmployerEmployeesTable from './EmployerEmployeesTable';
+import { Accordion, Button, Grid, Icon, Segment } from 'semantic-ui-react';
+import PatientConsultationsTable from './PatientConsultationsTable';
 import constants from '../../../../../../constants';
 import './patients.css';
 
@@ -11,10 +11,12 @@ class PatientMasterDetails extends Component{
   constructor(props){
     super(props);
     this.state = {
+      activeIndex:0,
       details:[],
       open: false,
       currentUrl: '/modules/patients'
     }
+    this.handleClick = this.handleClick.bind(this);
     this.handleConfirm = this.handleConfirm.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.show = this.show.bind(this);
@@ -33,6 +35,14 @@ class PatientMasterDetails extends Component{
       this.setState({details: response.data})
   })
   .catch(err => console.log(err));
+  }
+
+  handleClick(e, titleProps){
+    const { index } = titleProps
+    const { activeIndex } = this.state
+    const newIndex = activeIndex === index ? -1 : index
+
+    this.setState({ activeIndex: newIndex })
   }
 
   handleConfirm(){
@@ -72,7 +82,7 @@ class PatientMasterDetails extends Component{
   }
 
   render(){
-    const { currentUrl } = this.state;
+    const { currentUrl, activeIndex } = this.state;
     return (
      <Segment>
        <Grid>
@@ -94,6 +104,45 @@ class PatientMasterDetails extends Component{
             <h5 className='patient-details'>{this.state.details.contactNumber} </h5>
             <h5 className='patient-details'>{this.state.details.address} </h5>
             <Button primary>Generate Patient Information</Button>
+
+            <Accordion fluid styled className='patient-accordion'>
+              <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+                <Icon name='dropdown' />
+                Consultation History
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === 0}>
+                <PatientConsultationsTable
+                  patientId = {this.props.match.params.id}
+                />
+              </Accordion.Content>
+
+              <Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
+                <Icon name='dropdown' />
+                Prescription History
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === 1}>
+                <p>
+                  There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of
+                  {' '}dog that they find to be compatible with their own lifestyle and desires from a companion.
+                </p>
+              </Accordion.Content>
+
+              <Accordion.Title active={activeIndex === 2} index={2} onClick={this.handleClick}>
+                <Icon name='dropdown' />
+                Treatments History
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === 2}>
+                <p>
+                  Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.
+                </p>
+                <p>
+                  A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to
+                  {' '}assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your
+                  {' '}dog from a shelter, helps give a good home to a dog who may not find one so readily.
+                </p>
+              </Accordion.Content>
+            </Accordion>
+
            </Grid.Column>
          </Grid.Row>
         </Grid>

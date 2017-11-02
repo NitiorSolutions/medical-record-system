@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import changeCase from 'change-case';
 import { Table } from 'semantic-ui-react';
-import EmployerEmployeeRow from './EmployerEmployeeRow';
+import PatientConsultationRow from './PatientConsultationRow';
 import TablePagination from '../../../../components/TablePagination';
 import constants from '../../../../../../constants';
 
-class EmployerEmployeesTable extends Component{
+class PatientConsultationsTable extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -15,7 +15,7 @@ class EmployerEmployeesTable extends Component{
       address:'',
       activeItem: 1,
       itemPerPage: 5,
-      currentUrl: '/enrollment/employers'
+      currentUrl: '/modules/patients'
     }
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleItemClickRight = this.handleItemClickRight.bind(this);
@@ -23,16 +23,16 @@ class EmployerEmployeesTable extends Component{
   }
 
   componentDidMount(){
-    const fields = ['name', 'employeeNumber', 'title', 'birthDate', 'position', 'status', 'hireDate'];
+    const fields = ['date', 'payment', 'balance', 'remarks'];
     this.setState({ fields: fields });
-    this.getEmployerEmployees();
+    this.getConsultations();
   }
 
-  getEmployerEmployees(){
-    const id = this.props.employerId;
-    const table = 'employers';
-    const serverUrl = constants.server_url.enrollment + '/' + table;
-    axios.get(`${serverUrl}/${id}/employees`)
+  getConsultations(){
+    const id = this.props.patientId;
+    const table = 'patients';
+    const serverUrl = constants.server_url.app + '/' + table;
+    axios.get(`${serverUrl}/${id}/consultations`)
     .then(response => {
       this.setState({data: response.data})
   })
@@ -95,7 +95,7 @@ class EmployerEmployeesTable extends Component{
     } else {
       body = currentData.map((rows, index) => {
         return(
-          <EmployerEmployeeRow
+          <PatientConsultationRow
             data={rows}
             fields={fields}
             key={index}
@@ -107,7 +107,6 @@ class EmployerEmployeesTable extends Component{
 
     return (
       <div>
-        <h3> List of Employees for {this.props.employerName}</h3>
         <Table celled fixed singleLine>
           <Table.Header>
             <Table.Row>
@@ -133,4 +132,4 @@ class EmployerEmployeesTable extends Component{
   }
 }
 
-export default EmployerEmployeesTable;
+export default PatientConsultationsTable;

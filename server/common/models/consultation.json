@@ -19,6 +19,10 @@
         "columnName": "_id"
       }
     },
+    "date": {
+      "type": "date",
+      "required": true
+    },
     "payment": {
       "type": "number"
     },

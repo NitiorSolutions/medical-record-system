@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import { Table } from 'semantic-ui-react';
+import moment from 'moment';
 
-class EmployerRow extends Component {
+class PatientConsultationRow extends Component {
   render() {
     const { fields } = this.props;
     let rows = fields.map((field,index) => {
-      if (field === 'address') {
+      if (field.indexOf("date") >= 0){
         return (
           <td key={index}>
-            {
-              this.props.data.address.line1 + ' ' +
-              this.props.data.address.line2 + ' ' +
-              this.props.data.address.city + ' ' +
-              this.props.data.address.state + ' ' +
-              this.props.data.address.country + ' ' +
-              this.props.data.address.zipCode
-            }
+            { moment(this.props.data[field]).format('MMMM Do YYYY')}
           </td>
         )
       } else {
@@ -34,4 +28,4 @@ class EmployerRow extends Component {
   }
 }
 
-export default EmployerRow;
+export default PatientConsultationRow;
