@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import {Link} from 'react-router-dom';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Button, Grid, Segment } from 'semantic-ui-react';
 // import EmployerEmployeesTable from './EmployerEmployeesTable';
 import constants from '../../../../../../constants';
 import './patients.css';
@@ -81,7 +82,7 @@ class PatientMasterDetails extends Component{
            </Grid.Column>
            <Grid.Column width={15}>
              <h1>
-              {this.state.details.name}
+              {this.state.details.name} ({this.state.details.gender})
               <Link
                 className='ui primary right floated button'
                 to={`${currentUrl}/details/${this.props.match.params.id}`}
@@ -89,9 +90,10 @@ class PatientMasterDetails extends Component{
                 See Details
               </Link>
             </h1>
-            <span className='patient-details'>
-              {this.state.details.age} y/o, {this.state.details.gender}, <i>{this.state.details.contactNumber}</i>
-            </span>
+            <h5 className='patient-details'>{moment(this.state.details.birthDate).format('MMMM Do YYYY')} / {this.state.details.age} y/o </h5>
+            <h5 className='patient-details'>{this.state.details.contactNumber} </h5>
+            <h5 className='patient-details'>{this.state.details.address} </h5>
+            <Button primary>Generate Patient Information</Button>
            </Grid.Column>
          </Grid.Row>
         </Grid>
