@@ -21,6 +21,7 @@ class ConsultationTable extends Component{
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleItemClickRight = this.handleItemClickRight.bind(this);
     this.handleItemClickLeft = this.handleItemClickLeft.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
   }
@@ -35,7 +36,7 @@ class ConsultationTable extends Component{
     const id = this.props.patientId;
     const table = 'patients';
     const serverUrl = constants.server_url.app + '/' + table;
-    axios.get(`${serverUrl}/${id}/consultations`)
+    axios.get(`${serverUrl}/${id}/consultations?filter={"where":{"active":true}}`)
     .then(response => {
       this.setState({data: response.data})
     })
@@ -66,6 +67,20 @@ class ConsultationTable extends Component{
       item = this.state.activeItem;
     }
     this.setState({ activeItem: item });
+  }
+
+  handleDelete(fk){
+    const id = this.props.patientId;
+    const table = 'patients';
+    const serverUrl = constants.server_url.app + '/' + table;
+    const consultation = {"active":false};
+    axios.request({
+      method:'put',
+      url:`${serverUrl}/${id}/consultations/${fk}`,
+      data: consultation
+    }).then(response => {
+      this.getConsultations();
+    }).catch(err => console.log(err));
   }
 
   handleSubmit(newConsultation) {
@@ -111,6 +126,7 @@ class ConsultationTable extends Component{
         return (
           <Table.HeaderCell
             key={index}
+            textAlign='center'
           >
             Actions
           </Table.HeaderCell>
@@ -144,6 +160,7 @@ class ConsultationTable extends Component{
             key={index}
             patientId={id}
             handleUpdate={this.handleUpdate}
+            handleDelete={this.handleDelete}
           />
         )
       });

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Table } from 'semantic-ui-react';
+import { Grid, Table } from 'semantic-ui-react';
 import EditConsultation from './EditConsultation';
+import DeleteConsultation from './DeleteConsultation';
 import moment from 'moment';
 
 class ConsultationRow extends Component {
@@ -16,11 +17,23 @@ class ConsultationRow extends Component {
       } else if (field === 'consultationId'){
         return (
           <td key={index}>
-            <EditConsultation
-              patientId = { this.props.patientId }
-              consultationId = { this.props.data[field] }
-              onUpdate = { this.props.handleUpdate }
-            />
+            <Grid>
+              <Grid.Row textAlign="center">
+                <Grid.Column width={8}>
+                  <EditConsultation
+                    patientId = { this.props.patientId }
+                    consultationId = { this.props.data[field] }
+                    onUpdate = { this.props.handleUpdate }
+                  />
+                </Grid.Column>
+                <Grid.Column width={8}>
+                  <DeleteConsultation
+                    consultationId = { this.props.data[field] }
+                    onDelete = { this.props.handleDelete }
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </td>
         )
       } else {

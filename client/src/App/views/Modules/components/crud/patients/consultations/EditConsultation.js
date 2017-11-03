@@ -77,7 +77,7 @@ class EditConsultation extends Component{
     this.props.onUpdate(newConsultation, this.props.consultationId);
     this.close()
   }
-  
+
   open(){
       this.setState({ showModal: true});
   }
@@ -89,7 +89,7 @@ class EditConsultation extends Component{
   render(){
     return (
       <Modal
-        trigger={<Button color='blue' onClick={this.open}>Edit</Button>}
+        trigger={<i aria-hidden="true" onClick={this.open} className="edit large icon"></i>}
         open={this.state.showModal}
       >
         <Header icon='add' content='Edit a Consultation' />
