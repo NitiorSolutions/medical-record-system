@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import changeCase from 'change-case';
 import { Table } from 'semantic-ui-react';
-import PatientConsultationRow from './PatientConsultationRow';
-import TablePagination from '../../../../components/TablePagination';
-import constants from '../../../../../../constants';
+import ConsultationRow from './ConsultationRow';
+import AddConsultation from './AddConsultation';
+import TablePagination from '../../../../../components/TablePagination';
+import constants from '../../../../../../../constants';
 
-class PatientConsultationsTable extends Component{
+class ConsultationTable extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -20,6 +21,7 @@ class PatientConsultationsTable extends Component{
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleItemClickRight = this.handleItemClickRight.bind(this);
     this.handleItemClickLeft = this.handleItemClickLeft.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
@@ -65,6 +67,21 @@ class PatientConsultationsTable extends Component{
     this.setState({ activeItem: item });
   }
 
+  handleSubmit(newConsultation) {
+    const table = 'patients';
+    const serverUrl = constants.server_url.app + '/' + table;
+    const id = this.props.patientId;
+    let consultations = this.state.data;
+    let newConsultations = consultations.concat([newConsultation]);
+    axios.request({
+      method:'post',
+      url:`${serverUrl}/${id}/consultations`,
+      data: newConsultation
+    }).then(response => {
+      this.setState({ data: newConsultations });
+    }).catch(err => console.log(err));
+  }
+
   render(){
     const { data, fields, activeItem, itemPerPage } = this.state;
     const pageNumbers = [];
@@ -95,7 +112,7 @@ class PatientConsultationsTable extends Component{
     } else {
       body = currentData.map((rows, index) => {
         return(
-          <PatientConsultationRow
+          <ConsultationRow
             data={rows}
             fields={fields}
             key={index}
@@ -107,6 +124,9 @@ class PatientConsultationsTable extends Component{
 
     return (
       <div>
+        <AddConsultation
+          onSubmit = { this.handleSubmit }
+        />
         <Table celled fixed singleLine>
           <Table.Header>
             <Table.Row>
@@ -132,4 +152,4 @@ class PatientConsultationsTable extends Component{
   }
 }
 
-export default PatientConsultationsTable;
+export default ConsultationTable;

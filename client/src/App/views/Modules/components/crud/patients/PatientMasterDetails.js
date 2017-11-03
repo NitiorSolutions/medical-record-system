@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
 import { Accordion, Button, Grid, Icon, Segment } from 'semantic-ui-react';
-import PatientConsultationsTable from './PatientConsultationsTable';
+import ConsultationTable from './consultations/ConsultationTable';
 import constants from '../../../../../../constants';
 import './patients.css';
 
@@ -111,7 +111,7 @@ class PatientMasterDetails extends Component{
                 Consultation History
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 0}>
-                <PatientConsultationsTable
+                <ConsultationTable
                   patientId = {this.props.match.params.id}
                 />
               </Accordion.Content>

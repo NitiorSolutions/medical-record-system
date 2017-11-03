@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table } from 'semantic-ui-react';
 import moment from 'moment';
 
-class PatientConsultationRow extends Component {
+class ConsultationRow extends Component {
   render() {
     const { fields } = this.props;
     let rows = fields.map((field,index) => {
@@ -28,4 +28,4 @@ class PatientConsultationRow extends Component {
   }
 }
 
-export default PatientConsultationRow;
+export default ConsultationRow;
