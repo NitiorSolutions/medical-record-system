@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Header, Modal, Form, Icon } from 'semantic-ui-react';
+import axios from 'axios';
 import moment from 'moment';
+import constants from '../../../../../../../constants';
 
-class AddConsultation extends Component{
+class EditConsultation extends Component{
   constructor(props){
     super(props);
     const today = moment().format('YYYY-MM-DD');
@@ -17,6 +19,29 @@ class AddConsultation extends Component{
     this.close = this.close.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount(){
+    console.log()
+    this.getConsultationDetails();
+  }
+
+  getConsultationDetails(){
+    const id = this.props.patientId;
+    const fk = this.props.consultationId;
+    const table = 'patients';
+    const serverUrl = constants.server_url.app + '/' + table;
+    axios.get(`${serverUrl}/${id}/consultations/${fk}`)
+    .then(response => {
+      const date = moment(response.data.date).format('YYYY-MM-DD');
+      this.setState({
+        date:date,
+        payment:response.data.payment,
+        balance:response.data.balance,
+        remarks:response.data.remarks
+      });
+    })
+    .catch(err => console.log(err));
   }
 
   handleInputChange(e){
@@ -49,9 +74,10 @@ class AddConsultation extends Component{
       balance: balance,
       remarks: remarks
     }
-    this.props.onSubmit(newConsultation);
+    this.props.onUpdate(newConsultation, this.props.consultationId);
     this.close()
   }
+  
   open(){
       this.setState({ showModal: true});
   }
@@ -63,10 +89,10 @@ class AddConsultation extends Component{
   render(){
     return (
       <Modal
-        trigger={<Button inverted color='green' onClick={this.open}>Add</Button>}
+        trigger={<Button color='blue' onClick={this.open}>Edit</Button>}
         open={this.state.showModal}
       >
-        <Header icon='add' content='Add a Consultation' />
+        <Header icon='add' content='Edit a Consultation' />
         <Modal.Content>
           <Form>
 
@@ -116,4 +142,4 @@ class AddConsultation extends Component{
   }
 }
 
-export default AddConsultation;
+export default EditConsultation;

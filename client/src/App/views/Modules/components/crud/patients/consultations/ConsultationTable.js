@@ -22,10 +22,11 @@ class ConsultationTable extends Component{
     this.handleItemClickRight = this.handleItemClickRight.bind(this);
     this.handleItemClickLeft = this.handleItemClickLeft.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   componentDidMount(){
-    const fields = ['date', 'payment', 'balance', 'remarks'];
+    const fields = ['date', 'payment', 'balance', 'remarks', 'consultationId'];
     this.setState({ fields: fields });
     this.getConsultations();
   }
@@ -37,8 +38,8 @@ class ConsultationTable extends Component{
     axios.get(`${serverUrl}/${id}/consultations`)
     .then(response => {
       this.setState({data: response.data})
-  })
-  .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
   }
 
   handleItemClick(e, {name}){
@@ -82,8 +83,22 @@ class ConsultationTable extends Component{
     }).catch(err => console.log(err));
   }
 
+  handleUpdate(newConsultation, fk){
+    const id = this.props.patientId;
+    const table = 'patients';
+    const serverUrl = constants.server_url.app + '/' + table;
+    axios.request({
+      method:'put',
+      url:`${serverUrl}/${id}/consultations/${fk}`,
+      data: newConsultation
+    }).then(response => {
+      this.getConsultations();
+    }).catch(err => console.log(err));
+  }
+
   render(){
     const { data, fields, activeItem, itemPerPage } = this.state;
+    const id = this.props.patientId;
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(data.length / itemPerPage); i++) {
       pageNumbers.push(i);
@@ -92,13 +107,24 @@ class ConsultationTable extends Component{
     const indexOfFirst = indexOfLast - itemPerPage;
     let currentData = this.state.data.slice(indexOfFirst, indexOfLast);
     let headers = fields.map((field,index) => {
-      return (
-        <Table.HeaderCell
-          key={index}
-        >
-          {changeCase.titleCase(field)}
-        </Table.HeaderCell>
-      )
+      if (field === 'consultationId'){
+        return (
+          <Table.HeaderCell
+            key={index}
+          >
+            Actions
+          </Table.HeaderCell>
+        )
+      } else {
+        return (
+          <Table.HeaderCell
+            key={index}
+          >
+            {changeCase.titleCase(field)}
+          </Table.HeaderCell>
+        )
+      }
+
     });
     let body;
     if (currentData.length === 0 ){
@@ -116,6 +142,8 @@ class ConsultationTable extends Component{
             data={rows}
             fields={fields}
             key={index}
+            patientId={id}
+            handleUpdate={this.handleUpdate}
           />
         )
       });
@@ -139,7 +167,7 @@ class ConsultationTable extends Component{
           </Table.Body>
 
           <TablePagination
-            fields={fields}
+            length={fields.length}
             activeItem={activeItem}
             pageNumbers={pageNumbers}
             handleItemClick={this.handleItemClick}

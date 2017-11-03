@@ -197,7 +197,7 @@ class PatientTable extends Component{
           </Table.Body>
 
           <TablePagination
-            fields={fields}
+            length={fields.length}
             activeItem={activeItem}
             pageNumbers={pageNumbers}
             handleItemClick={this.handleItemClick}
