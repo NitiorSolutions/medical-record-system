@@ -63,7 +63,7 @@ class AddConsultation extends Component{
   render(){
     return (
       <Modal
-        trigger={<Button inverted color='green' onClick={this.open}>Add</Button>}
+        trigger={<Button inverted color='green' onClick={this.open}>New Consultation</Button>}
         open={this.state.showModal}
       >
         <Header icon='add' content='Add a Consultation' />
