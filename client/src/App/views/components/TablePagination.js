@@ -3,7 +3,7 @@ import { Icon, Menu, Table } from 'semantic-ui-react';
 
 class TablePagination extends Component{
   render(){
-    const { fields, activeItem, pageNumbers } = this.props;
+    const { length, activeItem, pageNumbers } = this.props;
 
     const renderPageNumbers = pageNumbers.map(number => {
       return (
@@ -20,7 +20,7 @@ class TablePagination extends Component{
     return (
       <Table.Footer>
         <Table.Row>
-          <Table.HeaderCell colSpan={fields.length}>
+          <Table.HeaderCell colSpan={length}>
             <Menu floated='right' pagination>
               <Menu.Item as='a' onClick={this.props.handleItemClickLeft} icon>
                 <Icon name='left chevron' />

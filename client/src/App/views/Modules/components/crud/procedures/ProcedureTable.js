@@ -4,13 +4,13 @@ import { Table } from 'semantic-ui-react';
 import axios from 'axios';
 import _ from 'lodash';
 import changeCase from 'change-case';
-import MedicineRow from './MedicineRow';
-import MedicineHeader from './MedicineHeader';
+import ProcedureRow from './ProcedureRow';
+import ProcedureHeader from './ProcedureHeader';
 import GenericSearch from '../../../../components/GenericSearch';
 import TablePagination from '../../../../components/TablePagination';
 import constants from '../../../../../../constants';
 
-class MedicineTable extends Component{
+class ProcedureTable extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -116,11 +116,11 @@ class MedicineTable extends Component{
   }
 
   componentDidMount() {
-    const table = 'medicines';
+    const table = 'procedures';
     const currentUrl = this.props.match.url;
     const serverUrl = constants.server_url.app + '/' + table;
     // Set table fields here
-    const fields = ['genericName', 'brandName', 'description'];
+    const fields = ['name', 'description', 'fee'];
     this.setState({
       table: table,
       currentUrl: currentUrl,
@@ -163,7 +163,7 @@ class MedicineTable extends Component{
     } else {
       body = currentData.map((rows, index) => {
         return(
-          <MedicineRow
+          <ProcedureRow
             data={rows}
             fields={fields}
             handleRowClick={this.handleRowClick}
@@ -175,7 +175,7 @@ class MedicineTable extends Component{
 
     return(
       <div>
-        <MedicineHeader
+        <ProcedureHeader
           currentUrl = {this.state.currentUrl}
         />
         <GenericSearch
@@ -210,4 +210,4 @@ class MedicineTable extends Component{
   }
 }
 
-export default MedicineTable;
+export default ProcedureTable;

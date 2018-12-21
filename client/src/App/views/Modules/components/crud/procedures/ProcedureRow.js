@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'semantic-ui-react';
 
-class MedicineRow extends Component {
+class ProcedureRow extends Component {
   onRowClick(id){
     this.props.handleRowClick(id);
   }
@@ -18,11 +18,11 @@ class MedicineRow extends Component {
     });
 
     return (
-      <Table.Row onClick={() => this.onRowClick(this.props.data.medicineId)}>
+      <Table.Row onClick={() => this.onRowClick(this.props.data.procedureId)}>
         { rows }
       </Table.Row>
     );
   }
 }
 
-export default MedicineRow;
+export default ProcedureRow;

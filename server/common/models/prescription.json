@@ -2,7 +2,7 @@
   "name": "Prescription",
   "plural": "Prescriptions",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
@@ -10,13 +10,14 @@
     "Timestamp": {}
   },
   "properties": {
-    "patient": {
+    "prescriptionId": {
       "type": "string",
-      "required": true
-    },
-    "medicine": {
-      "type": "string",
-      "required": true
+      "id": true,
+      "required": true,
+      "defaultFn": "uuidv4",
+      "mongodb": {
+        "columnName": "_id"
+      }
     },
     "quantity": {
       "type": "number",
@@ -31,7 +32,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "medicines": {
+      "type": "hasOne",
+      "model": "Medicine",
+      "foreignKey": "prescriptionId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

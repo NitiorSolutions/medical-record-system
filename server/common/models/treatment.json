@@ -10,15 +10,16 @@
     "Timestamp": {}
   },
   "properties": {
-    "patient": {
+    "treatmentId": {
       "type": "string",
-      "required": true
+      "id": true,
+      "required": true,
+      "defaultFn": "uuidv4",
+      "mongodb": {
+        "columnName": "_id"
+      }
     },
     "complaint": {
-      "type": "string",
-      "required": true
-    },
-    "procedure": {
       "type": "string",
       "required": true
     },
@@ -40,7 +41,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "procedures": {
+      "type": "hasOne",
+      "model": "Procedure",
+      "foreignKey": "treatmentId"
+    }
+  },
   "acls": [],
   "methods": {}
 }
