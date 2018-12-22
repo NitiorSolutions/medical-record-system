@@ -2,7 +2,7 @@
   "name": "Prescription",
   "plural": "Prescriptions",
   "base": "PersistedModel",
-  "idInjection": false,
+  "idInjection": true,
   "options": {
     "validateUpsert": true
   },
@@ -10,15 +10,6 @@
     "Timestamp": {}
   },
   "properties": {
-    "prescriptionId": {
-      "type": "string",
-      "id": true,
-      "required": true,
-      "defaultFn": "uuidv4",
-      "mongodb": {
-        "columnName": "_id"
-      }
-    },
     "quantity": {
       "type": "number",
       "required": true

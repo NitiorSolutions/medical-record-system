@@ -14,15 +14,16 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "db",
+    "public": true
   },
   "AccessToken": {
     "dataSource": "db",
-    "public": false
+    "public": true
   },
   "ACL": {
     "dataSource": "db",
-    "public": false
+    "public": true
   },
   "RoleMapping": {
     "dataSource": "db",
@@ -39,11 +40,11 @@
     "dataSource": "db",
     "public": true
   },
-  "Prescription": {
+  "Procedure": {
     "dataSource": "db",
     "public": true
   },
-  "Procedure": {
+  "Patient": {
     "dataSource": "db",
     "public": true
   },
@@ -51,11 +52,27 @@
     "dataSource": "db",
     "public": true
   },
-  "Treatment": {
+  "Chart": {
     "dataSource": "db",
     "public": true
   },
-  "Patient": {
+  "Image": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Account": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Prescription": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Appointment": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Log": {
     "dataSource": "db",
     "public": true
   }

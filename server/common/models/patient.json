@@ -2,7 +2,7 @@
   "name": "Patient",
   "plural": "Patients",
   "base": "PersistedModel",
-  "idInjection": false,
+  "idInjection": true,
   "options": {
     "validateUpsert": true
   },
@@ -10,16 +10,15 @@
     "Timestamp": {}
   },
   "properties": {
-    "patientId": {
+    "firstName": {
       "type": "string",
-      "id": true,
-      "required": true,
-      "defaultFn": "uuidv4",
-      "mongodb": {
-        "columnName": "_id"
-      }
+      "required": true
     },
-    "name": {
+    "middleName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
       "type": "string",
       "required": true
     },
@@ -27,7 +26,7 @@
       "type": "number",
       "required": true
     },
-    "gender": {
+    "sex": {
       "type": "string",
       "required": true
     },
@@ -36,18 +35,12 @@
       "required": true
     },
     "occupation": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "address": {
       "type": "string",
       "required": true
-    },
-    "birthDate": {
-      "type": "date",
-      "required": true
-    },
-    "refferedBy": {
-      "type": "string"
     },
     "contactNumber": {
       "type": "string",
@@ -78,8 +71,37 @@
       "type": "hasMany",
       "model": "Prescription",
       "foreignKey": "patientId"
+    },
+    "charts": {
+      "type": "hasMany",
+      "model": "Chart",
+      "foreignKey": "patientId"
+    },
+    "images": {
+      "type": "hasMany",
+      "model": "Image",
+      "foreignKey": "patientId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

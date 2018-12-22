@@ -3,7 +3,7 @@
     "host": "localhost",
     "port": 27017,
     "url": "",
-    "database": "mrs",
+    "database": "drs",
     "password": "",
     "name": "db",
     "user": "",

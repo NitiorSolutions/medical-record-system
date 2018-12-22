@@ -2,7 +2,7 @@
   "name": "Medicine",
   "plural": "Medicines",
   "base": "PersistedModel",
-  "idInjection": false,
+  "idInjection": true,
   "options": {
     "validateUpsert": true
   },
@@ -10,21 +10,16 @@
     "Timestamp": {}
   },
   "properties": {
-    "medicineId": {
-      "type": "string",
-      "id": true,
-      "required": true,
-      "defaultFn": "uuidv4",
-      "mongodb": {
-        "columnName": "_id"
-      }
-    },
     "genericName": {
       "type": "string",
       "required": true
     },
     "brandName": {
       "type": "string",
+      "required": true
+    },
+    "quantity": {
+      "type": "number",
       "required": true
     },
     "description": {

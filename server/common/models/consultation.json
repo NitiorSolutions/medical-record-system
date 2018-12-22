@@ -2,7 +2,7 @@
   "name": "Consultation",
   "plural": "Consultations",
   "base": "PersistedModel",
-  "idInjection": false,
+  "idInjection": true,
   "options": {
     "validateUpsert": true
   },
@@ -10,15 +10,6 @@
     "Timestamp": {}
   },
   "properties": {
-    "consultationId": {
-      "type": "string",
-      "id": true,
-      "required": true,
-      "defaultFn": "uuidv4",
-      "mongodb": {
-        "columnName": "_id"
-      }
-    },
     "date": {
       "type": "date",
       "required": true
@@ -39,6 +30,25 @@
   },
   "validations": [],
   "relations": {},
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }
