@@ -12,7 +12,7 @@ class AddLink extends Component {
   render() {
     return (
       <span>
-        <Link className="ui button blue" to="/tabs/procedures/add/">
+        <Link className="ui button blue" to="/app/procedures/add/">
           Add Procedure
         </Link>
       </span>

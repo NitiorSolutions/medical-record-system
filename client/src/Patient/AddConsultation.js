@@ -49,7 +49,7 @@ class AddConsultation extends Component {
           url: "http://localhost:3001/api/logs/",
           data: newLog
         });
-        this.props.history.push("/tabs/patients/");
+        this.props.history.push("/app/patients/");
       });
   }
 
@@ -108,7 +108,7 @@ class AddConsultation extends Component {
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Link to="/tabs/patients" className="ui button negative">
+            <Link to="/app/patients" className="ui button negative">
               Cancel
             </Link>
             <Button onClick={this.onAdd} positive>

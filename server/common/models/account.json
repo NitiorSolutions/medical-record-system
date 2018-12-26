@@ -20,14 +20,14 @@
     },
     "middleName": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "lastName": {
       "type": "string",
       "required": true
     },
-    "age": {
-      "type": "number",
+    "birthDate": {
+      "type": "date",
       "required": true
     },
     "sex": {
@@ -48,6 +48,10 @@
     },
     "contactNumber": {
       "type": "string",
+      "required": true
+    },
+    "isSuperAdmin": {
+      "type": "boolean",
       "required": true
     },
     "isAdmin": {

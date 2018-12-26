@@ -49,7 +49,7 @@ class DeletePrescription extends Component {
           data: newLog
         });
 
-        this.props.history.push("/tabs/patients/view/" + this.state.patientId);
+        this.props.history.push("/app/patients/view/" + this.state.patientId);
       });
   }
 
@@ -83,7 +83,7 @@ class DeletePrescription extends Component {
           </Modal.Content>
           <Modal.Actions>
             <Link
-              to={"/tabs/patients/view/" + this.state.patientId}
+              to={"/app/patients/view/" + this.state.patientId}
               className="ui button negative"
             >
               Cancel

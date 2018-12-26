@@ -14,7 +14,7 @@ class ViewLink extends Component {
       <span>
         <Link
           className="ui button green"
-          to={"/tabs/patients/view/" + this.props.item.id}
+          to={"/app/patients/view/" + this.props.item.id}
         >
           View
         </Link>

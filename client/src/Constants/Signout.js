@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Button, Modal } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 
+import './Signout.css';
+
 class Signout extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,7 @@ class Signout extends Component {
 
   handleSignout() {
     localStorage.clear();
-    this.props.history.push("/");
+    this.props.history.push("/sign-in");
   }
 
   render() {
@@ -25,9 +27,9 @@ class Signout extends Component {
 
     return (
       <div>
-        <Button onClick={this.show("blurring")} color="red" inverted>
+        <span onClick={this.show("blurring")} className='signout'>
           Signout
-        </Button>
+        </span>
 
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Are you sure you want to logout?</Modal.Header>

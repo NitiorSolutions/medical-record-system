@@ -42,7 +42,7 @@ class DeleteMedicine extends Component {
           data: newLog
         });
 
-        this.props.history.push("/tabs/medicines");
+        this.props.history.push("/app/medicines");
       });
   }
 
@@ -71,7 +71,7 @@ class DeleteMedicine extends Component {
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Link to="/tabs/medicines" className="ui button negative">
+            <Link to="/app/medicines" className="ui button negative">
               Cancel
             </Link>
             <Button onClick={this.onDelete} positive>

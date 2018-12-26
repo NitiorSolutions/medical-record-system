@@ -8,14 +8,14 @@ if (isAdmin === "false") {
   DeleteImageLink = ({ item }) => (
     <Link
       className="ui button negative disabled"
-      to={"/tabs/images/delete/" + item.id}
+      to={"/app/images/delete/" + item.id}
     >
       Delete
     </Link>
   );
 } else {
   DeleteImageLink = ({ item }) => (
-    <Link className="ui button negative" to={"/tabs/images/delete/" + item.id}>
+    <Link className="ui button negative" to={"/app/images/delete/" + item.id}>
       Delete
     </Link>
   );

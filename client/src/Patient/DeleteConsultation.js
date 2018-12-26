@@ -44,7 +44,7 @@ class DeleteConsultation extends Component {
           url: "http://localhost:3001/api/logs/",
           data: newLog
         });
-        this.props.history.push("/tabs/patients/view/" + this.state.patientId);
+        this.props.history.push("/app/patients/view/" + this.state.patientId);
       });
   }
 
@@ -79,7 +79,7 @@ class DeleteConsultation extends Component {
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Link to="/tabs/patients" className="ui button negative">
+            <Link to="/app/patients" className="ui button negative">
               Cancel
             </Link>
             <Button onClick={this.onDelete} positive>

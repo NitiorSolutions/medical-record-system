@@ -58,7 +58,7 @@ class EditProcedure extends Component {
           url: "http://localhost:3001/api/logs/",
           data: newLog
         });
-        this.props.history.push("/tabs/procedures");
+        this.props.history.push("/app/procedures");
       });
   }
 
@@ -132,7 +132,7 @@ class EditProcedure extends Component {
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Link to="/tabs/procedures" className="ui button negative">
+            <Link to="/app/procedures" className="ui button negative">
               Cancel
             </Link>
             <Button onClick={this.onEdit} positive>

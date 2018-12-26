@@ -9,7 +9,6 @@ class PatientLayout extends Component {
   render() {
     return (
       <div>
-        <Nav />
 
         <Grid relaxed columns={2}>
           <Grid.Column width={3}>

@@ -4,33 +4,13 @@ import logo from "../images/eDental-logo.png";
 import { Link } from "react-router-dom";
 import Signout from "./Signout";
 
-import { createBrowserHistory } from "history";
-
-const history = createBrowserHistory();
-
 class Nav extends Component {
-  handleBack() {
-    history.goBack();
-  }
 
   render() {
     return (
-      <Menu inverted>
+      <Menu fixed="top" inverted className="primary-nav">
         <Menu.Item>
-          <Button
-            animated="vertical"
-            color="black"
-            onClick={this.handleBack.bind(this)}
-          >
-            <Button.Content visible>
-              <Icon name="angle left" />
-            </Button.Content>
-            <Button.Content hidden>Back</Button.Content>
-          </Button>
-        </Menu.Item>
-
-        <Menu.Item>
-          <Link to="/tabs/patients/">
+          <Link to="/app/patients/">
             <Image src={logo} size="mini" />
           </Link>
         </Menu.Item>

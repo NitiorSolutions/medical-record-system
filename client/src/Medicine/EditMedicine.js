@@ -60,7 +60,7 @@ class EditMedicine extends Component {
           data: newLog
         });
 
-        this.props.history.push("/tabs/medicines");
+        this.props.history.push("/app/medicines");
       });
   }
 
@@ -134,7 +134,7 @@ class EditMedicine extends Component {
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Link to="/tabs/medicines" className="ui button negative">
+            <Link to="/app/medicines" className="ui button negative">
               Cancel
             </Link>
             <Button onClick={this.onEdit} positive>

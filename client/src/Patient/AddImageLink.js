@@ -12,7 +12,7 @@ class AddImageLink extends Component {
   render() {
     return (
       <span>
-        <Link className="ui" to={"/tabs/images/add/" + this.props.item.id}>
+        <Link className="ui" to={"/app/images/add/" + this.props.item.id}>
           Add Image
         </Link>
       </span>

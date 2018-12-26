@@ -141,7 +141,7 @@ class ViewChart extends Component {
         </Modal.Content>
         <Modal.Actions>
           <Link
-            to={"/tabs/patients/view/" + patientId}
+            to={"/app/patients/view/" + patientId}
             className="ui button positive"
           >
             Return

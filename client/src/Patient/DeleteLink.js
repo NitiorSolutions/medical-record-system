@@ -14,7 +14,7 @@ class DeleteLink extends Component {
       <span>
         <Link
           className="ui button red"
-          to={"/tabs/patients/delete/" + this.props.item.id}
+          to={"/app/patients/delete/" + this.props.item.id}
         >
           Delete
         </Link>

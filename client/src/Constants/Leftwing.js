@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import daniel from "../images/daniel.jpg";
 import axios from "axios";
 
+import Signup from "./Signup";
+
 let userName, password;
 
 class Leftwing extends Component {
@@ -34,7 +36,7 @@ class Leftwing extends Component {
 
   render() {
     const { activeItem } = this.state;
-
+    console.log(localStorage.getItem("isSuperAdmin"));
     return (
       <Menu vertical color="blue">
         <Menu.Item>
@@ -55,15 +57,15 @@ class Leftwing extends Component {
           Home
           <Menu.Menu>
             <Menu.Item>
-              <Link to="/tabs/patients/">Patients</Link>
+              <Link to="/app/patients/">Patients</Link>
             </Menu.Item>
 
             <Menu.Item>
-              <Link to="/tabs/medicines/">Medicines</Link>
+              <Link to="/app/medicines/">Medicines</Link>
             </Menu.Item>
 
             <Menu.Item>
-              <Link to="/tabs/procedures/">Procedures</Link>
+              <Link to="/app/procedures/">Procedures</Link>
             </Menu.Item>
           </Menu.Menu>
         </Menu.Item>
@@ -80,22 +82,15 @@ class Leftwing extends Component {
                                 System Accounts
                                 </Link>
                             </Menu.Item> */}
+            {
+              localStorage.getItem("isSuperAdmin") === "true" ?
+                <Menu.Item>
+                  <Signup />
+                </Menu.Item>
+              :
+              <React.Fragment />
+            }
           </Menu.Menu>
-        </Menu.Item>
-
-        <Menu.Item
-          name="inbox"
-          active={activeItem === "inbox"}
-          onClick={this.handleItemClick}
-        >
-          <Label color="blue"> 2</Label>Inbox
-        </Menu.Item>
-        <Menu.Item
-          name="spam"
-          active={activeItem === "spam"}
-          onClick={this.handleItemClick}
-        >
-          Spam
         </Menu.Item>
       </Menu>
     );

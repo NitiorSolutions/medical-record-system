@@ -25,12 +25,12 @@ class Layout extends Component {
           <Grid.Column width={12}>
             <Router>
               <Tabs>
-                <Route path="/tabs/patients" exact component={PatientTab} />
-                <Route path="/tabs/medicines" exact component={MedicineTab} />
-                <Route path="/tabs/procedures" exact component={ProcedureTab} />
+                <Route path="/app/patients" exact component={PatientTab} />
+                <Route path="/app/medicines" exact component={MedicineTab} />
+                <Route path="/app/procedures" exact component={ProcedureTab} />
                 <Route path="/account/" exact component={AccountTab} />
                 <Route
-                  path="/tabs/patients/alec"
+                  path="/app/patients/alec"
                   exact
                   component={PatientProfile}
                 />

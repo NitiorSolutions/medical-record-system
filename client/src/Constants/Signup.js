@@ -35,12 +35,13 @@ class Signup extends Component {
       firstName: this.state.firstName,
       middleName: this.state.middleName,
       lastName: this.state.lastName,
-      age: parseInt(this.state.age, 10),
+      birthDate: Date.now(),
       sex: this.state.sex,
       licenseNumber: this.state.licenseNumber,
       ptrNumber: this.state.ptrNumber,
       contactNumber: this.state.contactNumber,
       address: this.state.address,
+      isSuperAdmin: false,
       isAdmin: false,
       isVerified: true
     };
@@ -71,9 +72,9 @@ class Signup extends Component {
 
     return (
       <div>
-        <Button onClick={this.show("blurring")} color="blue" inverted>
-          Sign Up
-        </Button>
+        <a onClick={this.show("blurring")} >
+          Create a User
+        </a>
 
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Create User</Modal.Header>
@@ -134,14 +135,6 @@ class Signup extends Component {
               </Form.Group>
 
               <Form.Group>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.age}
-                  name="age"
-                  type="text"
-                  label="Age"
-                  placeholder="Age"
-                />
                 <Form.Input
                   onChange={this.handleChange}
                   value={this.state.sex}
