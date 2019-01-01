@@ -1,16 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'semantic-ui-css/semantic.min.css'
+import Loadable from 'react-loadable';
+
+import Loading from './components/Loading/Loading';
 import './index.css';
+import 'semantic-ui-css/semantic.min.css';
 
-import LandingPage from './Paths.js';
+import ScrollToTop from './components/ScrollToTop';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
 
+const App = Loadable({
+  loader: () => import('./app/App'),
+  loading: Loading,
+});
 
-import * as serviceWorker from './serviceWorker';
+const SignIn = Loadable({
+  loader: () => import('./Constants/Signin'),
+  loading: Loading,
+});
 
-ReactDOM.render(<LandingPage />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+  <Router>
+    <ScrollToTop>
+      <Route exact path="/sign-in" component={SignIn} />
+      <Route path="/app" component={App} />
+    </ScrollToTop>
+  </Router>,
+  document.getElementById('root')
+);

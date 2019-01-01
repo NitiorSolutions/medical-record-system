@@ -57,7 +57,7 @@ class AddImage extends Component {
           url: "http://localhost:3001/api/logs/",
           data: newLog
         });
-        this.props.history.push("/tabs/patients/");
+        this.props.history.push("/app/patients/");
       })
       .catch(err => console.log(err));
   }
@@ -111,7 +111,7 @@ class AddImage extends Component {
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Link className="ui button negative" to={"/tabs/patients/"}>
+            <Link className="ui button negative" to={"/app/patients/"}>
               Cancel
             </Link>
           </Modal.Actions>

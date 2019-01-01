@@ -95,7 +95,7 @@ class AccountDetails extends Component {
         data: editedAccount
       })
       .then(response => {
-        this.props.history.push("/tabs/patients");
+        this.props.history.push("/app/patients");
       });
   }
 

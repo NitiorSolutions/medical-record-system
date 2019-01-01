@@ -8,14 +8,14 @@ if (isAdmin === "false") {
   DeleteChartLink = ({ item }) => (
     <Link
       className="ui button disabled negative"
-      to={"/tabs/charts/delete/" + item.id}
+      to={"/app/charts/delete/" + item.id}
     >
       Delete
     </Link>
   );
 } else {
   DeleteChartLink = ({ item }) => (
-    <Link className="ui button negative" to={"/tabs/charts/delete/" + item.id}>
+    <Link className="ui button negative" to={"/app/charts/delete/" + item.id}>
       Delete
     </Link>
   );

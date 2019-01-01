@@ -1,0 +1,43 @@
+import React, { Component } from 'react';
+import { Icon, Menu, Table } from 'semantic-ui-react';
+
+class TablePagination extends Component{
+  render(){
+    const { fields, activeItem, pageNumbers, size } = this.props;
+
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <Menu.Item
+          key={number}
+          name={''+number+''} // eslint-disable-next-line
+          active={activeItem == number}
+          onClick={this.props.handleItemClick}>
+          {number}
+        </Menu.Item>
+      );
+    });
+
+    return (
+      <Table.Footer>
+        <Table.Row>
+          <Table.HeaderCell colSpan={fields.length}>
+            {this.props.children}
+            <Menu floated='right' pagination size={size}>
+              <Menu.Item as='a' onClick={this.props.handleItemClickLeft} icon>
+                <Icon name='left chevron' />
+              </Menu.Item>
+              {renderPageNumbers}
+              <Menu.Item  as='a' onClick={this.props.handleItemClickRight} icon>
+                <Icon name='right chevron' />
+              </Menu.Item>
+
+            </Menu>
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Footer>
+    )
+  }
+
+}
+
+export default TablePagination;

@@ -14,7 +14,7 @@ class EditLink extends Component {
       <span>
         <Link
           className="ui button green"
-          to={"/tabs/procedures/edit/" + this.props.item.id}
+          to={"/app/procedures/edit/" + this.props.item.id}
         >
           Edit
         </Link>

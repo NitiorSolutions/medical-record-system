@@ -1,0 +1,16 @@
+.title-h2{
+  float: left;
+  margin: 0 0 0 4em !important;
+}
+
+.portal-switch-modal {
+  margin-top: 0.5em !important;
+}
+
+.portal-switch-button {
+  color: #fff !important;
+  background-color: transparent !important;
+  border: 0.05em solid !important;
+  padding: 0.4em !important;
+  margin-left: 0.7em !important;
+}

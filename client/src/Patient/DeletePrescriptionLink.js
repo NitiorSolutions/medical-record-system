@@ -8,7 +8,7 @@ if (isAdmin === "false") {
   DeletePrescriptionLink = ({ item }) => (
     <Link
       className="ui button negative disabled"
-      to={"/tabs/prescriptions/delete/" + item.id}
+      to={"/app/prescriptions/delete/" + item.id}
     >
       Delete
     </Link>
@@ -17,7 +17,7 @@ if (isAdmin === "false") {
   DeletePrescriptionLink = ({ item }) => (
     <Link
       className="ui button negative"
-      to={"/tabs/prescriptions/delete/" + item.id}
+      to={"/app/prescriptions/delete/" + item.id}
     >
       Delete
     </Link>

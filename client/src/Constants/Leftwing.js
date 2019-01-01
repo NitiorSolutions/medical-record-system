@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { Menu, Input, Image, Label } from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import daniel from "../images/daniel.jpg";
 import axios from "axios";
+
+import Signup from "./Signup";
+import './Leftwing.css';
 
 let userName, password;
 
@@ -10,13 +13,14 @@ class Leftwing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accounts: []
+      accounts: [],
+      activeItem: 'patients'
     };
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
-  componentWillMount() {
+  componentDidMount() {
     userName = localStorage.getItem("userName");
     password = localStorage.getItem("password");
 
@@ -34,17 +38,12 @@ class Leftwing extends Component {
 
   render() {
     const { activeItem } = this.state;
-
     return (
       <Menu vertical color="blue">
         <Menu.Item>
           <center>
-            <Image src={daniel} circular size="small" />
+            <Image src={daniel} size="small" />
           </center>
-        </Menu.Item>
-
-        <Menu.Item>
-          <Input placeholder="Search the site..." />
         </Menu.Item>
 
         <Menu.Item>
@@ -52,18 +51,17 @@ class Leftwing extends Component {
         </Menu.Item>
 
         <Menu.Item>
-          Home
           <Menu.Menu>
-            <Menu.Item>
-              <Link to="/tabs/patients/">Patients</Link>
+            <Menu.Item as={Link} to="/app/patients" name='patients' active={activeItem === 'patients'} className='leftwing-menu-item' onClick={this.handleItemClick}>
+              Patients
             </Menu.Item>
 
-            <Menu.Item>
-              <Link to="/tabs/medicines/">Medicines</Link>
+            <Menu.Item as={Link} to="/app/medicines" name='medicines' active={activeItem === 'medicines'} className='leftwing-menu-item' onClick={this.handleItemClick}>
+              Medicines
             </Menu.Item>
 
-            <Menu.Item>
-              <Link to="/tabs/procedures/">Procedures</Link>
+            <Menu.Item as={Link} to="/app/procedures" name='procedures' active={activeItem === 'procedures'} className='leftwing-menu-item' onClick={this.handleItemClick}>
+              Procedures
             </Menu.Item>
           </Menu.Menu>
         </Menu.Item>
@@ -71,31 +69,24 @@ class Leftwing extends Component {
         <Menu.Item>
           Manage
           <Menu.Menu>
-            <Menu.Item>
-              <Link to="/account/profile/">Profile</Link>
+            <Menu.Item as={Link} to="/app/profile" name='profile' active={activeItem === 'profile'} className='leftwing-menu-item' onClick={this.handleItemClick}>
+              Profile
             </Menu.Item>
 
-            {/* <Menu.Item>
+            {/* Will put all users <Menu.Item>
                                 <Link to="/account/">
                                 System Accounts
                                 </Link>
                             </Menu.Item> */}
+            {
+              localStorage.getItem("isSuperAdmin") === "true" ?
+                <Menu.Item className='leftwing-menu-item-create'>
+                  <Signup />
+                </Menu.Item>
+              :
+              <React.Fragment />
+            }
           </Menu.Menu>
-        </Menu.Item>
-
-        <Menu.Item
-          name="inbox"
-          active={activeItem === "inbox"}
-          onClick={this.handleItemClick}
-        >
-          <Label color="blue"> 2</Label>Inbox
-        </Menu.Item>
-        <Menu.Item
-          name="spam"
-          active={activeItem === "spam"}
-          onClick={this.handleItemClick}
-        >
-          Spam
         </Menu.Item>
       </Menu>
     );

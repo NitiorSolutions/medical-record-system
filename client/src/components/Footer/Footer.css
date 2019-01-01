@@ -1,0 +1,10 @@
+.footer{
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
+  background: rgb(45,65,78) !important;
+}
+
+.footer-menu {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}

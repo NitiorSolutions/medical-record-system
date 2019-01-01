@@ -1,0 +1,8 @@
+.ez-main {
+  margin-top: 3em !important;
+  margin-bottom: 5em;
+}
+
+.dimmed.dimmable > ui.modals.dimmer.visible {
+  display: flex !important;
+}

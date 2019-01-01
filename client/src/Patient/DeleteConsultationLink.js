@@ -14,7 +14,7 @@ class DeleteConsultationLink extends Component {
       <span>
         <Link
           className="ui button negative"
-          to={"/tabs/consultations/" + this.props.item.id}
+          to={"/app/consultations/" + this.props.item.id}
         >
           Delete
         </Link>

@@ -1,0 +1,40 @@
+
+.image-logo{
+  position: absolute !important;
+  left: 1em !important;
+  top: 1.5em !important;
+}
+
+.primary-nav{
+  border-top: 5px solid rgb(45,65,78) !important;
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
+  background: rgb(45,162,105);
+}
+
+.employer-primary-nav{
+  border-top: 5px solid rgb(45,65,78) !important;
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
+  background: rgb(203,76,54) !important;
+}
+
+.navbar-icon-submenu {
+  font-size: 1rem !important;
+}
+
+.item-setup {
+  font-size: 1.4em !important;
+}
+
+.navbar-icon {
+    margin: 0px !important;
+}
+
+.item-sign-out {
+  font-size: 1em !important;
+}
+
+.item-sign-out-options {
+  font-size: 1rem !important;
+}

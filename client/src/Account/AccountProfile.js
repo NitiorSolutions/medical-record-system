@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { Grid, Accordion, Icon, Table } from "semantic-ui-react";
+import { Accordion, Icon, Table } from "semantic-ui-react";
 import axios from "axios";
 
-import Nav from "../Constants/Nav";
-import Leftwing from "../Constants/Leftwing";
 import AccountDetails from "./AccountDetails";
 import DeleteAppointmentLink from "./DeleteAppointmentLink";
 
@@ -80,85 +78,70 @@ class AccountProfile extends Component {
     const { activeIndex } = this.state;
 
     return (
-      <div>
-        <Nav />
 
-        <Grid relaxed columns={2}>
-          <Grid.Column width={3}>
-            <Leftwing />
-          </Grid.Column>
+      <Accordion fluid styled>
+        <Accordion.Title
+          active={activeIndex === 0}
+          index={0}
+          onClick={this.handleClick}
+        >
+          <Icon name="dropdown" />Information
+        </Accordion.Title>
 
-          <Grid.Column width={12}>
-            {/* <AccountDetails>
+        <Accordion.Content active={activeIndex === 0}>
+          <AccountDetails />
+        </Accordion.Content>
 
-                        </AccountDetails> */}
+        <Accordion.Title
+          active={activeIndex === 1}
+          index={1}
+          onClick={this.handleClick}
+        >
+          <Icon name="dropdown" />Appointments
+        </Accordion.Title>
 
-            <Accordion fluid styled>
-              <Accordion.Title
-                active={activeIndex === 0}
-                index={0}
-                onClick={this.handleClick}
-              >
-                <Icon name="dropdown" />Information
-              </Accordion.Title>
+        <Accordion.Content active={activeIndex === 1}>
+          <Table celled>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Date</Table.HeaderCell>
 
-              <Accordion.Content active={activeIndex === 0}>
-                <AccountDetails />
-              </Accordion.Content>
+                <Table.HeaderCell>Time</Table.HeaderCell>
 
-              <Accordion.Title
-                active={activeIndex === 1}
-                index={1}
-                onClick={this.handleClick}
-              >
-                <Icon name="dropdown" />Appointments
-              </Accordion.Title>
+                <Table.HeaderCell>With:</Table.HeaderCell>
 
-              <Accordion.Content active={activeIndex === 1}>
-                <Table celled>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell>Date</Table.HeaderCell>
+                <Table.HeaderCell>Actions</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-                      <Table.HeaderCell>Time</Table.HeaderCell>
+            <Table.Body>{appointmentsTable}</Table.Body>
+          </Table>
+        </Accordion.Content>
 
-                      <Table.HeaderCell>With:</Table.HeaderCell>
+        <Accordion.Title
+          active={activeIndex === 2}
+          index={2}
+          onClick={this.handleClick}
+        >
+          <Icon name="dropdown" />Logs
+        </Accordion.Title>
 
-                      <Table.HeaderCell>Actions</Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
+        <Accordion.Content active={activeIndex === 2}>
+          <Table celled>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Date</Table.HeaderCell>
 
-                  <Table.Body>{appointmentsTable}</Table.Body>
-                </Table>
-              </Accordion.Content>
+                <Table.HeaderCell>Activity</Table.HeaderCell>
 
-              <Accordion.Title
-                active={activeIndex === 2}
-                index={2}
-                onClick={this.handleClick}
-              >
-                <Icon name="dropdown" />Logs
-              </Accordion.Title>
+                <Table.HeaderCell>User</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-              <Accordion.Content active={activeIndex === 2}>
-                <Table celled>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell>Date</Table.HeaderCell>
-
-                      <Table.HeaderCell>Activity</Table.HeaderCell>
-
-                      <Table.HeaderCell>User</Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
-
-                  <Table.Body>{logsTable}</Table.Body>
-                </Table>
-              </Accordion.Content>
-            </Accordion>
-          </Grid.Column>
-        </Grid>
-      </div>
+            <Table.Body>{logsTable}</Table.Body>
+          </Table>
+        </Accordion.Content>
+      </Accordion>
     );
   }
 }

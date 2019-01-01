@@ -22,8 +22,8 @@
       "type": "string",
       "required": true
     },
-    "age": {
-      "type": "number",
+    "birthDate": {
+      "type": "date",
       "required": true
     },
     "sex": {

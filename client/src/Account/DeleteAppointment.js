@@ -42,7 +42,7 @@ class DeleteAppointment extends Component {
           url: "http://localhost:3001/api/logs/",
           data: newLog
         });
-        this.props.history.push("/account/profile/");
+        this.props.history.push("/app/profile");
       });
   }
 
@@ -77,7 +77,7 @@ class DeleteAppointment extends Component {
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Link to="/account/profile/" className="ui button negative">
+            <Link to="/app/profile" className="ui button negative">
               Cancel
             </Link>
             <Button onClick={this.onDelete} positive>

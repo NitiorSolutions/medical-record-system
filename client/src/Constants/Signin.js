@@ -1,13 +1,12 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import {
   Form,
   Grid,
   Header,
-  Message,
   Segment,
   Button
 } from "semantic-ui-react";
-import Signup from "./Signup";
 
 import axios from "axios";
 
@@ -20,7 +19,8 @@ class Signin extends Component {
       accessToken: "",
       email: "",
       password: "",
-      userToken: ""
+      userToken: "",
+      redirUrl: null
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -39,12 +39,15 @@ class Signin extends Component {
           if (userData.password === response.data[i].password) {
             localStorage.setItem("userName", userData.email);
             localStorage.setItem("password", userData.password);
+            localStorage.setItem("loggedIn", true);
+            localStorage.setItem("isSuperAdmin", response.data[i].isSuperAdmin);
             localStorage.setItem("isAdmin", response.data[i].isAdmin);
             localStorage.setItem("isVerified", response.data[i].isVerified);
-            this.props.history.push("/tabs/patients");
+            this.props.history.push("/app/patients");
           }
         }
       }
+      this.setState({redirUrl: '/app/patients'});
     });
   }
 
@@ -59,11 +62,11 @@ class Signin extends Component {
   }
 
   render() {
-    const { email, password } = this.state;
-    const { userToken } = this.state;
-
+    const { email, password, redirUrl, userToken } = this.state;
     return (
       <div className="login-form">
+        {
+        localStorage.getItem("loggedIn") ? <Redirect to={{ pathname: redirUrl }}/> :
         <Grid
           textAlign="center"
           style={{ height: "100%" }}
@@ -102,12 +105,9 @@ class Signin extends Component {
                 </Button>
               </Segment>
             </Form>
-
-            <Message>
-              <Signup />
-            </Message>
           </Grid.Column>
         </Grid>
+        }
       </div>
     );
   }

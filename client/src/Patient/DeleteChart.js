@@ -43,7 +43,7 @@ class DeleteChart extends Component {
           data: newLog
         });
 
-        this.props.history.push("/tabs/patients/");
+        this.props.history.push("/app/patients/");
       });
   }
 
@@ -70,7 +70,7 @@ class DeleteChart extends Component {
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Link to="/tabs/patients" className="ui button negative">
+            <Link to="/app/patients" className="ui button negative">
               Cancel
             </Link>
             <Button onClick={this.onDelete} positive>

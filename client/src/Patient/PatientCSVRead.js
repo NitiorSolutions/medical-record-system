@@ -24,7 +24,7 @@ const PatientCSVRead = () => {
         middleName: temp2[1],
         lastName: temp2[2],
         sex: temp2[3],
-        age: temp2[4],
+        birthDate: temp2[4],
         civilStatus: temp2[5],
         occupation: temp2[6],
         contactNumber: temp2[7],

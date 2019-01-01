@@ -109,7 +109,7 @@ class PatientTab extends Component {
       <div>
         <Container>
           <Container textAlign="center">
-            <Header>Patients Tab</Header>
+            <Header>List of Patients</Header>
             <Input
               icon="search"
               value={searchKey}

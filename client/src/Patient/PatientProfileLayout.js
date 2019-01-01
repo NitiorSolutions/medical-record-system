@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Nav from "../Constants/Nav.js";
 import { Header, Image, Card, Grid, Table } from "semantic-ui-react";
 import { Accordion, Icon } from "semantic-ui-react";
 import AddAppointment from "../Account/AddAppointment";
@@ -200,8 +199,6 @@ class PatientProfileLayout extends Component {
 
     return (
       <div>
-        <Nav />
-
         <Grid columns={2} divided>
           <Grid.Column width={4}>
             <Card>
