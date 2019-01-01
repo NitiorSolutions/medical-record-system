@@ -253,12 +253,12 @@ class Routes extends Component {
 
               {/* Accounts */}
               <Route
-                path="/account/profile/"
+                path="/app/account/profile/"
                 exact
                 component={AccountProfile}
               />
               <Route
-                path="/account/profile/appointments/delete/:id"
+                path="/app/account/profile/appointments/delete/:id"
                 exact
                 component={DeleteAppointment}
               />

@@ -46,10 +46,6 @@ class Leftwing extends Component {
         </Menu.Item>
 
         <Menu.Item>
-          <Input placeholder="Search the site..." />
-        </Menu.Item>
-
-        <Menu.Item>
           {this.state.accounts.firstName} {this.state.accounts.lastName}
         </Menu.Item>
 

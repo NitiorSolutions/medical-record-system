@@ -8,18 +8,15 @@ import Nav from "../Constants/Nav";
 class PatientLayout extends Component {
   render() {
     return (
-      <div>
+      <Grid relaxed columns={2}>
+        <Grid.Column width={3}>
+          <Leftwing />
+        </Grid.Column>
 
-        <Grid relaxed columns={2}>
-          <Grid.Column width={3}>
-            <Leftwing />
-          </Grid.Column>
-
-          <Grid.Column width={12}>
-            <PatientTab />
-          </Grid.Column>
-        </Grid>
-      </div>
+        <Grid.Column width={12}>
+          <PatientTab />
+        </Grid.Column>
+      </Grid>
     );
   }
 }
