@@ -144,7 +144,7 @@ class Routes extends Component {
           <div>
             <Switch>
               {/* Patients */}
-              <Route path="/app/patients/" exact component={PatientLayout} />
+              <Route path="/app/patients" exact component={PatientLayout} />
               <Route
                 path="/app/patients/view/:id"
                 exact
@@ -209,7 +209,7 @@ class Routes extends Component {
 
               {/* Medicines */}
               <Route
-                path="/app/medicines/"
+                path="/app/medicines"
                 exact
                 component={MedicineLayout}
               />
@@ -231,7 +231,7 @@ class Routes extends Component {
 
               {/* Procedures */}
               <Route
-                path="/app/procedures/"
+                path="/app/procedures"
                 exact
                 component={ProcedureLayout}
               />
@@ -253,12 +253,12 @@ class Routes extends Component {
 
               {/* Accounts */}
               <Route
-                path="/app/account/profile/"
+                path="/app/profile"
                 exact
                 component={AccountProfile}
               />
               <Route
-                path="/app/account/profile/appointments/delete/:id"
+                path="/app/profile/appointments/delete/:id"
                 exact
                 component={DeleteAppointment}
               />

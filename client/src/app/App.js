@@ -47,29 +47,7 @@ class App extends Component {
 }
 
   const leftItems = [];
-  //   { content: "Home", key: "home", to:"/app", exact:true, className:"item", activeClassName:"active" },
-  //   { content: "Enrollment", key: "enrollment", to:"/app/enrollment", className:"item", activeClassName:"active" },
-  //   { content: "Invoices", key: "invoice-manager", to:"/app/invoice-manager", className:"item", activeClassName:"active" }
-  // ];
 
   const rightItems = [];
-
-  const rightItemsAdmin = [
-    { content: "Home", key: "dashboard", to:"/app/dashboard/client", className:"item", activeClassName:"active", iconname:"home" },
-    //{ content: "Employers", key: "employers", to:"/app/profile/client", className:"item", activeClassName:"active", iconname:"briefcase" },
-    { content: "Client Management", key: "client", to:"/app/client-management", className:"item", activeClassName:"active", iconname:"briefcase" },
-
-    { content: "Setup", key: "Setup", to:"/app/user-management", className:"item", activeClassName:"active", iconname:"settings" },
-    { content: "Sign Out", key: "signout", to:"/sign-in", className:"item", activeClassName:"", iconname:"user outline" }
-  ];
-
-  const rightItemsClient = [
-    { content: "Home", key: "dashboard", to:"/app/dashboard/client", className:"item", activeClassName:"active", iconname:"home" },
-    //{ content: "Employers", key: "employers", to:"/app/profile/client", className:"item", activeClassName:"active", iconname:"briefcase" },
-    { content: "Broker Management", key: "brokers", to:"/app/broker-management", className:"item", activeClassName:"active", iconname:"handshake" },
-    { content: "Employer Management", key: "employers", to:"/app/employer-management", className:"item", activeClassName:"active", iconname:"briefcase" },
-    { content: "Setup", key: "Setup", to:"/app/user-management", className:"item", activeClassName:"active", iconname:"settings" },
-    { content: "Sign Out", key: "signout", to:"/sign-in", className:"item", activeClassName:"", iconname:"user outline" }
-  ];
 
 export default App;

@@ -69,135 +69,128 @@ class Signup extends Component {
 
   render() {
     const { open, dimmer } = this.state;
-
     return (
-      <div>
-        <a onClick={this.show("blurring")} >
-          Create a User
-        </a>
-
-        <Modal dimmer={dimmer} open={open} onClose={this.close}>
-          <Modal.Header>Create User</Modal.Header>
-          <Modal.Content>
-            <Form>
-              <Form.Group widths="equal">
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.userName}
-                  name="userName"
-                  type="text"
-                  fluid
-                  label="Username"
-                  placeholder="Username"
-                />
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.password}
-                  name="password"
-                  type="password"
-                  fluid
-                  label="Password"
-                  placeholder="Password"
-                />
-              </Form.Group>
-
-              <Divider />
-
-              <Header>Personal Information</Header>
-              <Form.Group widths="equal">
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.firstName}
-                  name="firstName"
-                  type="text"
-                  fluid
-                  label="First Name"
-                  placeholder="First Name"
-                />
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.middleName}
-                  name="middleName"
-                  type="text"
-                  fluid
-                  label="Middle Name"
-                  placeholder="Middle Name"
-                />
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.lastName}
-                  name="lastName"
-                  type="text"
-                  fluid
-                  label="Last Name"
-                  placeholder="Last Name"
-                />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.sex}
-                  name="sex"
-                  type="text"
-                  label="Sex"
-                  placeholder="Sex"
-                />
-              </Form.Group>
-
-              <Divider />
-
-              <Form.Group widths="equal">
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.licenseNumber}
-                  name="licenseNumber"
-                  type="text"
-                  fluid
-                  label="License Number"
-                  placeholder="License Number"
-                />
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.ptrNumber}
-                  name="ptrNumber"
-                  type="text"
-                  fluid
-                  label="Ptr Number"
-                  placeholder="Ptr Number"
-                />
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={this.state.contactNumber}
-                  name="contactNumber"
-                  type="text"
-                  fluid
-                  label="Contact Number"
-                  placeholder="Contact Number"
-                />
-              </Form.Group>
-
+      <Modal trigger={<a onClick={this.show("blurring")} > Create a User</a>} dimmer={dimmer} open={open} onClose={this.close}>
+        <Modal.Header>Create User</Modal.Header>
+        <Modal.Content>
+          <Form>
+            <Form.Group widths="equal">
               <Form.Input
                 onChange={this.handleChange}
-                value={this.state.address}
-                name="address"
+                value={this.state.userName}
+                name="userName"
                 type="text"
                 fluid
-                label="Address"
-                placeholder="Address"
+                label="Username"
+                placeholder="Username"
               />
-            </Form>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button onClick={this.close} negative>
-              Cancel
-            </Button>
-            <Button onClick={this.handleSignup} positive>
-              Confirm
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </div>
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.password}
+                name="password"
+                type="password"
+                fluid
+                label="Password"
+                placeholder="Password"
+              />
+            </Form.Group>
+
+            <Divider />
+
+            <Header>Personal Information</Header>
+            <Form.Group widths="equal">
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.firstName}
+                name="firstName"
+                type="text"
+                fluid
+                label="First Name"
+                placeholder="First Name"
+              />
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.middleName}
+                name="middleName"
+                type="text"
+                fluid
+                label="Middle Name"
+                placeholder="Middle Name"
+              />
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.lastName}
+                name="lastName"
+                type="text"
+                fluid
+                label="Last Name"
+                placeholder="Last Name"
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.sex}
+                name="sex"
+                type="text"
+                label="Sex"
+                placeholder="Sex"
+              />
+            </Form.Group>
+
+            <Divider />
+
+            <Form.Group widths="equal">
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.licenseNumber}
+                name="licenseNumber"
+                type="text"
+                fluid
+                label="License Number"
+                placeholder="License Number"
+              />
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.ptrNumber}
+                name="ptrNumber"
+                type="text"
+                fluid
+                label="Ptr Number"
+                placeholder="Ptr Number"
+              />
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.contactNumber}
+                name="contactNumber"
+                type="text"
+                fluid
+                label="Contact Number"
+                placeholder="Contact Number"
+              />
+            </Form.Group>
+
+            <Form.Input
+              onChange={this.handleChange}
+              value={this.state.address}
+              name="address"
+              type="text"
+              fluid
+              label="Address"
+              placeholder="Address"
+            />
+          </Form>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={this.close} negative>
+            Cancel
+          </Button>
+          <Button onClick={this.handleSignup} positive>
+            Confirm
+          </Button>
+        </Modal.Actions>
+      </Modal>
     );
   }
 }

@@ -8,7 +8,7 @@ if (isAdmin === "false") {
   DeleteAppointmentLink = ({ item }) => (
     <Link
       className="ui button disabled negative"
-      to={"/account/profile/appointments/delete/" + item.id}
+      to={"/app/profile/appointments/delete/" + item.id}
     >
       Delete
     </Link>
@@ -17,7 +17,7 @@ if (isAdmin === "false") {
   DeleteAppointmentLink = ({ item }) => (
     <Link
       className="ui button negative"
-      to={"/account/profile/appointments/delete/" + item.id}
+      to={"/app/profile/appointments/delete/" + item.id}
     >
       Delete
     </Link>

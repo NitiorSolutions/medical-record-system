@@ -1,18 +1,8 @@
 .ez-main {
-  margin-top: 5em;
+  margin-top: 3em !important;
   margin-bottom: 5em;
 }
 
-.breadcrumb-top {
-  top: 4.2em;
-  position: fixed;
-  z-index: 100;
-  background: #fff;
-  -webkit-box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
-  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
-}
-
-.breadcrumb-grid {
-  margin: 0 0 0 0 !important;
-  padding: 0 !important;
+.dimmed.dimmable > ui.modals.dimmer.visible {
+  display: flex !important;
 }

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid } from "semantic-ui-react";
 import { Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
+
+import Leftwing from "../Constants/Leftwing";
 
 import Loading from '../components/Loading/Loading';
 
@@ -22,7 +24,7 @@ const Footer = Loadable({
 
 class AppBody extends Component {
   render() {
-    const { leftItems, rightItems, currentUrl, pathname } = this.props;
+    const { leftItems, rightItems, currentUrl } = this.props;
     return (
       <div>
         { localStorage.getItem("loggedIn") ?
@@ -33,9 +35,18 @@ class AppBody extends Component {
                 rightItems={rightItems}
                 currentUrl={currentUrl}
               />
-              <div className='ez-main' >
-                <Routes />
-              </div>
+
+              <Grid columns={2} className='ez-main'>
+                <Grid.Column width={3}>
+                  <Leftwing />
+                </Grid.Column>
+
+                <Grid.Column width={12}>
+                  <div >
+                    <Routes />
+                  </div>
+                </Grid.Column>
+              </Grid>
               <Footer />
             </div>
           ) : <Redirect to={{ pathname: '/sign-in' }}/>

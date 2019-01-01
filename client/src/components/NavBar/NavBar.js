@@ -7,7 +7,7 @@ import {
   Sidebar,
   Responsive
 } from "semantic-ui-react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import _ from "lodash";
 
@@ -57,7 +57,9 @@ const NavBarMobile = ({
 const NavBarDesktop = ({ leftItems, rightItems }) => (
   <Menu fixed="top" inverted className="primary-nav">
     <Menu.Item>
-      <Image size="mini" src='/logo.png' alt='Logo' />
+      <Link to="/app/patients">
+        <Image size="mini" src='/logo.png' alt='Logo' />
+      </Link>
     </Menu.Item>
 
     {_.map(leftItems, item => <NavLink {...item} > {item.content} </NavLink>)}
