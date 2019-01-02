@@ -3,7 +3,7 @@ import { Pagination, Table } from 'semantic-ui-react';
 
 class PaginationTable extends Component{
   render(){
-    const { fields, totalPages, size, activePage } = this.props;
+    const { fields, totalPages, activePage } = this.props;
     return (
       <Table.Footer>
         <Table.Row>
@@ -11,7 +11,6 @@ class PaginationTable extends Component{
             {this.props.children}
             <Pagination
             floated='right'
-            size={size}
             activePage={activePage}
             onPageChange={this.props.onPageChange}
             totalPages={totalPages}

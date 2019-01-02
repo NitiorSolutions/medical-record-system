@@ -23,6 +23,8 @@ import AddChartsLink from "./AddChartLink";
 import AddConsultationLink from "./AddConsultationLink";
 import AddPrescriptionLink from "./AddPrescriptionLink";
 
+import PaginationTable from '../components/PaginationTable/PaginationTable';
+
 const getPatientQuery = "http://localhost:3001/api/Patients";
 
 let patientTable;
@@ -31,10 +33,16 @@ class PatientTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      patients: [],
-      searchKey: ""
+      data: [],
+      searchKey: "",
+      fields: [],
+      activePage: 1,
+      itemPerPage: 10,
+      selectedIndex: 0
     };
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.getPatients = this.getPatients.bind(this);
+    this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
 
   isSearched(searchKey) {
@@ -48,13 +56,10 @@ class PatientTab extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getPatients();
-  }
-
   getPatients() {
     axios.get(getPatientQuery).then(response => {
-      this.setState({ patients: response.data }, () => {});
+      const fields = ['Last Name', 'First Name', 'Middle Name', 'Actions']
+      this.setState({ data: response.data, fields: fields }, () => {});
     });
   }
 
@@ -62,11 +67,25 @@ class PatientTab extends Component {
     this.setState({ searchKey: event.target.value });
   }
 
-  render() {
-    const patients = this.state.patients;
-    const searchKey = this.state.searchKey;
+  handlePaginationChange(e, {activePage}){
+    this.setState({
+      activePage: activePage,
+    });
+  }
 
-    patientTable = patients.filter(this.isSearched(searchKey)).map(patient => {
+  componentDidMount() {
+    this.getPatients();
+  }
+
+  render() {
+    const { activePage, itemPerPage, data, searchKey, fields } = this.state;
+
+    const indexOfLast = activePage * itemPerPage;
+    const indexOfFirst = indexOfLast - itemPerPage;
+    const totalPages = data.length / itemPerPage;
+    let currentData = data.slice(indexOfFirst, indexOfLast);
+
+    patientTable = currentData.filter(this.isSearched(searchKey)).map(patient => {
       return (
         <Table.Row key={patient.id}>
           <Table.Cell>{patient.lastName}</Table.Cell>
@@ -105,6 +124,16 @@ class PatientTab extends Component {
       );
     });
 
+    let headers = fields.map((field,index) => {
+      return (
+        <Table.HeaderCell
+          key={index}
+        >
+          {field}
+        </Table.HeaderCell>
+      )
+    });
+
     return (
       <div>
         <Container>
@@ -129,17 +158,24 @@ class PatientTab extends Component {
               <Table celled>
                 <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell>Last Name</Table.HeaderCell>
-
-                    <Table.HeaderCell>First Name</Table.HeaderCell>
-
-                    <Table.HeaderCell>Middle Name</Table.HeaderCell>
-
-                    <Table.HeaderCell>Actions</Table.HeaderCell>
+                    {headers}
                   </Table.Row>
                 </Table.Header>
 
                 <Table.Body>{patientTable}</Table.Body>
+                  {
+                    data.length > itemPerPage ?
+                    <PaginationTable
+                      onPageChange={this.handlePaginationChange}
+                      totalPages={totalPages}
+                      activePage={activePage}
+                      fields={fields}
+                    >
+                      {this.props.children}
+                    </PaginationTable>
+                    :
+                    <span></span>
+                  }
               </Table>
             </Segment>
           </Container>
