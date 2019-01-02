@@ -36,12 +36,12 @@ class AppBody extends Component {
                 currentUrl={currentUrl}
               />
 
-              <Grid columns={2} className='ez-main'>
+              <Grid columns={2} className='main'>
                 <Grid.Column width={3}>
                   <Leftwing />
                 </Grid.Column>
 
-                <Grid.Column width={12}>
+                <Grid.Column width={13} className='body'>
                   <div >
                     <Routes />
                   </div>

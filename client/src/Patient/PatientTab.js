@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import {
   Input,
+  Button,
   Container,
   Header,
-  Menu,
   Dropdown,
   Segment,
-  Table
+  Table,
+  Grid
 } from "semantic-ui-react";
 import axios from "axios";
+import sortBy from "lodash/sortBy";
+import titleCase from 'title-case';
 
 import ViewLink from "./ViewLink";
 import AddLink from "./AddLink";
@@ -27,6 +30,14 @@ import PaginationTable from '../components/PaginationTable/PaginationTable';
 
 const getPatientQuery = "http://localhost:3001/api/Patients";
 
+const _ = {
+    sortBy: sortBy
+}
+
+const changeCase = {
+    titleCase: titleCase
+}
+
 let patientTable;
 
 class PatientTab extends Component {
@@ -37,8 +48,10 @@ class PatientTab extends Component {
       searchKey: "",
       fields: [],
       activePage: 1,
-      itemPerPage: 10,
-      selectedIndex: 0
+      itemPerPage: 8,
+      selectedIndex: 0,
+      column: null,
+      direction: null
     };
     this.onSearchChange = this.onSearchChange.bind(this);
     this.getPatients = this.getPatients.bind(this);
@@ -58,7 +71,7 @@ class PatientTab extends Component {
 
   getPatients() {
     axios.get(getPatientQuery).then(response => {
-      const fields = ['Last Name', 'First Name', 'Middle Name', 'Actions']
+      const fields = ['lastName', 'firstName', 'middleName', 'actions']
       this.setState({ data: response.data, fields: fields }, () => {});
     });
   }
@@ -73,12 +86,28 @@ class PatientTab extends Component {
     });
   }
 
+  handleSort = clickedColumn => () => {
+    const { column, data, direction } = this.state
+    if (column !== clickedColumn) {
+      this.setState({
+        column: clickedColumn,
+        data: _.sortBy(data, [clickedColumn]),
+        direction: 'ascending',
+      })
+      return
+    }
+    this.setState({
+      data: data.reverse(),
+      direction: direction === 'ascending' ? 'descending' : 'ascending',
+    })
+  }
+
   componentDidMount() {
     this.getPatients();
   }
 
   render() {
-    const { activePage, itemPerPage, data, searchKey, fields } = this.state;
+    const { activePage, itemPerPage, column, direction, data, searchKey, fields } = this.state;
 
     const indexOfLast = activePage * itemPerPage;
     const indexOfFirst = indexOfLast - itemPerPage;
@@ -128,34 +157,41 @@ class PatientTab extends Component {
       return (
         <Table.HeaderCell
           key={index}
+          sorted={column === field ? direction : null}
+          onClick={this.handleSort(field)}
         >
-          {field}
+          {changeCase.titleCase(field)}
         </Table.HeaderCell>
       )
     });
 
     return (
       <div>
-        <Container>
-          <Container textAlign="center">
-            <Header>List of Patients</Header>
-            <Input
-              icon="search"
-              value={searchKey}
-              onChange={this.onSearchChange}
-              placeholder="Search"
-            />
-          </Container>
 
-          <br />
+          <Header as='h1'>List of Patients</Header>
           <Container>
-            <Segment attached="bottom">
-              <Menu.Item>
-                <AddLink />
-                <PatientCSVRead />
-              </Menu.Item>
+            <Segment>
+              <Grid>
+                <Grid.Column floated='left' width={8}>
+                  <Grid.Column width={4}>
+                    <Input
+                      icon="search"
+                      value={searchKey}
+                      onChange={this.onSearchChange}
+                      placeholder="Search Patients"
+                    />
+                  </Grid.Column>
+                </Grid.Column>
+                <Grid.Column floated='right' width={8}>
+                  <Button.Group floated='right'>
+                    <PatientCSVRead />
+                    <Button.Or />
+                    <AddLink />
+                  </Button.Group>
 
-              <Table celled>
+                </Grid.Column>
+              </Grid>
+              <Table celled sortable striped>
                 <Table.Header>
                   <Table.Row>
                     {headers}
@@ -179,7 +215,6 @@ class PatientTab extends Component {
               </Table>
             </Segment>
           </Container>
-        </Container>
       </div>
     );
   }

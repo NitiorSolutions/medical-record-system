@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Button, Icon } from "semantic-ui-react";
 
 class AddLink extends Component {
   constructor(props) {
@@ -11,12 +12,11 @@ class AddLink extends Component {
 
   render() {
     return (
-      <span>
-        <Link className="ui button blue" to="/app/patients/add/">
-          Add Patient
-        </Link>
-      </span>
-    );
+      <Button as={Link} floated='right' color='green' icon labelPosition='right' to="/app/patients/add">
+        <Icon name='add' />
+        Add a Patient
+      </Button>
+  );
   }
 }
 
