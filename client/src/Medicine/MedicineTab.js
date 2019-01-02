@@ -179,7 +179,8 @@ class MedicineTab extends Component {
                         {this.props.children}
                       </PaginationTable>
                       :
-                      <span></span>
+                      <React.Fragment>
+                      </React.Fragment>
                     }
                 </Table>
               </Segment>

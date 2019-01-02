@@ -52,9 +52,6 @@ const PatientCSVRead = () => {
   };
 
   return (
-
-
-
       <Modal trigger={<Button icon labelPosition='left'> <Icon name='upload' /> Import Patients </Button>}>
         <Modal.Header>Import Patients</Modal.Header>
         <Modal.Content>

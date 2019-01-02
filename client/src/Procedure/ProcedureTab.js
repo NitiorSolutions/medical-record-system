@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import {
   Input,
+  Button,
   Container,
   Header,
-  Menu,
   Segment,
-  Table
+  Table,
+  Grid
 } from "semantic-ui-react";
 
 import AddLink from "./AddLink";
@@ -15,8 +16,20 @@ import DeleteLink from "./DeleteLink";
 import ProcedureCSVRead from "./ProcedureCSVRead";
 
 import axios from "axios";
+import sortBy from "lodash/sortBy";
+import titleCase from 'title-case';
+
+import PaginationTable from '../components/PaginationTable/PaginationTable';
 
 const getProcedureQuery = "http://localhost:3001/api/Procedures";
+
+const _ = {
+    sortBy: sortBy
+}
+
+const changeCase = {
+    titleCase: titleCase
+}
 
 let procedureTable;
 
@@ -24,10 +37,18 @@ class ProcedureTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      procedures: [],
-      searchKey: ""
+      data: [],
+      searchKey: "",
+      fields: [],
+      activePage: 1,
+      itemPerPage: 8,
+      selectedIndex: 0,
+      column: null,
+      direction: null
     };
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.getProcedures = this.getProcedures.bind(this);
+    this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
 
   isSearched(searchKey) {
@@ -41,15 +62,10 @@ class ProcedureTab extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getProcedures();
-  }
-
   getProcedures() {
     axios.get(getProcedureQuery).then(response => {
-      this.setState({ procedures: response.data }, () => {
-        // console.log(this.state.medicines);
-      });
+      const fields = ['name', 'description', 'price', 'actions']
+      this.setState({ data: response.data, fields: fields });
     });
   }
 
@@ -57,69 +73,118 @@ class ProcedureTab extends Component {
     this.setState({ searchKey: event.target.value });
   }
 
+  handlePaginationChange(e, {activePage}){
+    this.setState({
+      activePage: activePage,
+    });
+  }
+
+  handleSort = clickedColumn => () => {
+    const { column, data, direction } = this.state
+    if (column !== clickedColumn) {
+      this.setState({
+        column: clickedColumn,
+        data: _.sortBy(data, [clickedColumn]),
+        direction: 'ascending',
+      })
+      return
+    }
+    this.setState({
+      data: data.reverse(),
+      direction: direction === 'ascending' ? 'descending' : 'ascending',
+    })
+  }
+
+  componentDidMount() {
+    this.getProcedures();
+  }
+
   render() {
-    const procedures = this.state.procedures;
-    const searchKey = this.state.searchKey;
+    const { activePage, itemPerPage, column, direction, data, searchKey, fields } = this.state;
 
-    procedureTable = procedures
-      .filter(this.isSearched(searchKey))
-      .map(procedure => {
-        return (
-          <Table.Row key={procedure.id}>
-            <Table.Cell>{procedure.id}</Table.Cell>
-            <Table.Cell>{procedure.name}</Table.Cell>
-            <Table.Cell>{procedure.description}</Table.Cell>
-            <Table.Cell>{procedure.price}</Table.Cell>
-            <Table.Cell>
-              <EditLink item={procedure}>Edit</EditLink>
+    const indexOfLast = activePage * itemPerPage;
+    const indexOfFirst = indexOfLast - itemPerPage;
+    const totalPages = data.length / itemPerPage;
+    let currentData = data.slice(indexOfFirst, indexOfLast);
 
-              <DeleteLink item={procedure}>Delete</DeleteLink>
-            </Table.Cell>
-          </Table.Row>
-        );
-      });
+    procedureTable = currentData.filter(this.isSearched(searchKey)).map(procedure => {
+      return (
+        <Table.Row key={procedure.id}>
+          <Table.Cell>{procedure.name}</Table.Cell>
+          <Table.Cell>{procedure.description}</Table.Cell>
+          <Table.Cell textAlign='right'>{procedure.price}</Table.Cell>
+          <Table.Cell>
+            <EditLink item={procedure}>Edit</EditLink>
+
+            <DeleteLink item={procedure}>Delete</DeleteLink>
+          </Table.Cell>
+        </Table.Row>
+      );
+    });
+
+    let headers = fields.map((field,index) => {
+      return (
+        <Table.HeaderCell
+          key={index}
+          sorted={column === field ? direction : null}
+          onClick={this.handleSort(field)}
+        >
+          {changeCase.titleCase(field)}
+        </Table.HeaderCell>
+      )
+    });
 
     return (
       <div>
-        <Container>
-          <Container textAlign="center">
-            <Header>Procedures Tab</Header>
-            <Input
-              icon="search"
-              value={searchKey}
-              onChange={this.onSearchChange}
-              placeholder="Search"
-            />
-          </Container>
-
-          <br />
+          <Header as='h1'>List of Procedures</Header>
           <Container>
-            <Segment attached="bottom">
-              <Menu.Item>
-                <AddLink />
-                <ProcedureCSVRead />
-              </Menu.Item>
+            <Segment>
+              <Grid>
+                <Grid.Column floated='left' width={8}>
+                  <Grid.Column width={4}>
+                    <Input
+                      icon="search"
+                      value={searchKey}
+                      onChange={this.onSearchChange}
+                      placeholder="Search Procedures"
+                    />
+                  </Grid.Column>
+                </Grid.Column>
+                <Grid.Column floated='right' width={8}>
+                  <Button.Group floated='right'>
+                    <ProcedureCSVRead />
+                    <Button.Or />
+                    <AddLink />
+                  </Button.Group>
 
-              <Table celled>
+                </Grid.Column>
+              </Grid>
+
+              <Table celled sortable striped fixed singleLine>
                 <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell>Procedure ID</Table.HeaderCell>
-
-                    <Table.HeaderCell>Procedure</Table.HeaderCell>
-
-                    <Table.HeaderCell>Description</Table.HeaderCell>
-
-                    <Table.HeaderCell>Price</Table.HeaderCell>
-
-                    <Table.HeaderCell>Actions</Table.HeaderCell>
+                    {headers}
                   </Table.Row>
                 </Table.Header>
 
                 <Table.Body>{procedureTable}</Table.Body>
+                  {
+                    data.length > itemPerPage ?
+                    <PaginationTable
+                      onPageChange={this.handlePaginationChange}
+                      totalPages={totalPages}
+                      activePage={activePage}
+                      fields={fields}
+                    >
+                      {this.props.children}
+                    </PaginationTable>
+                    :
+                    <React.Fragment>
+                    </React.Fragment>
+                  }
               </Table>
             </Segment>
           </Container>
-        </Container>
       </div>
     );
   }
