@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "semantic-ui-react";
+import { Input, Form, Icon, Modal, Button } from "semantic-ui-react";
 import axios from "axios";
 
 const ProcedureCSVRead = () => {
@@ -22,7 +22,7 @@ const ProcedureCSVRead = () => {
       parsedProcedure = {
         name: temp2[0],
         description: temp2[1],
-        price: parseInt(temp2[2])
+        price: parseInt(temp2[2], 10)
       };
 
       axios
@@ -44,15 +44,22 @@ const ProcedureCSVRead = () => {
   };
 
   return (
-    <span>
-      <Input
-        type="file"
-        id="file"
-        className="input-file"
-        accept=".csv"
-        onChange={e => handleFileChosen(e.target.files[0])}
-      />
-    </span>
+    <Modal trigger={<Button icon labelPosition='left'> <Icon name='upload' /> Import Procedures </Button>}>
+      <Modal.Header>Import Procedures</Modal.Header>
+      <Modal.Content>
+        <Form>
+          <Form.Field inline>
+            <Input
+              type="file"
+              id="file"
+              className="input-file"
+              accept=".csv"
+              onChange={e => handleFileChosen(e.target.files[0])}
+            />
+          </Form.Field>
+        </Form>
+      </Modal.Content>
+    </Modal>
   );
 };
 

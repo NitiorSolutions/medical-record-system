@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import {
   Input,
+  Button,
   Container,
   Header,
-  Menu,
   Dropdown,
   Segment,
-  Table
+  Table,
+  Grid
 } from "semantic-ui-react";
 import axios from "axios";
+import sortBy from "lodash/sortBy";
+import titleCase from 'title-case';
 
 import ViewLink from "./ViewLink";
 import AddLink from "./AddLink";
@@ -23,7 +26,17 @@ import AddChartsLink from "./AddChartLink";
 import AddConsultationLink from "./AddConsultationLink";
 import AddPrescriptionLink from "./AddPrescriptionLink";
 
+import PaginationTable from '../components/PaginationTable/PaginationTable';
+
 const getPatientQuery = "http://localhost:3001/api/Patients";
+
+const _ = {
+    sortBy: sortBy
+}
+
+const changeCase = {
+    titleCase: titleCase
+}
 
 let patientTable;
 
@@ -31,10 +44,18 @@ class PatientTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      patients: [],
-      searchKey: ""
+      data: [],
+      searchKey: "",
+      fields: [],
+      activePage: 1,
+      itemPerPage: 8,
+      selectedIndex: 0,
+      column: null,
+      direction: null
     };
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.getPatients = this.getPatients.bind(this);
+    this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
 
   isSearched(searchKey) {
@@ -48,13 +69,10 @@ class PatientTab extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getPatients();
-  }
-
   getPatients() {
     axios.get(getPatientQuery).then(response => {
-      this.setState({ patients: response.data }, () => {});
+      const fields = ['lastName', 'firstName', 'middleName', 'actions']
+      this.setState({ data: response.data, fields: fields }, () => {});
     });
   }
 
@@ -62,11 +80,41 @@ class PatientTab extends Component {
     this.setState({ searchKey: event.target.value });
   }
 
-  render() {
-    const patients = this.state.patients;
-    const searchKey = this.state.searchKey;
+  handlePaginationChange(e, {activePage}){
+    this.setState({
+      activePage: activePage,
+    });
+  }
 
-    patientTable = patients.filter(this.isSearched(searchKey)).map(patient => {
+  handleSort = clickedColumn => () => {
+    const { column, data, direction } = this.state
+    if (column !== clickedColumn) {
+      this.setState({
+        column: clickedColumn,
+        data: _.sortBy(data, [clickedColumn]),
+        direction: 'ascending',
+      })
+      return
+    }
+    this.setState({
+      data: data.reverse(),
+      direction: direction === 'ascending' ? 'descending' : 'ascending',
+    })
+  }
+
+  componentDidMount() {
+    this.getPatients();
+  }
+
+  render() {
+    const { activePage, itemPerPage, column, direction, data, searchKey, fields } = this.state;
+
+    const indexOfLast = activePage * itemPerPage;
+    const indexOfFirst = indexOfLast - itemPerPage;
+    const totalPages = data.length / itemPerPage;
+    let currentData = data.slice(indexOfFirst, indexOfLast);
+
+    patientTable = currentData.filter(this.isSearched(searchKey)).map(patient => {
       return (
         <Table.Row key={patient.id}>
           <Table.Cell>{patient.lastName}</Table.Cell>
@@ -105,45 +153,69 @@ class PatientTab extends Component {
       );
     });
 
+    let headers = fields.map((field,index) => {
+      return (
+        <Table.HeaderCell
+          key={index}
+          sorted={column === field ? direction : null}
+          onClick={this.handleSort(field)}
+        >
+          {changeCase.titleCase(field)}
+        </Table.HeaderCell>
+      )
+    });
+
     return (
       <div>
-        <Container>
-          <Container textAlign="center">
-            <Header>List of Patients</Header>
-            <Input
-              icon="search"
-              value={searchKey}
-              onChange={this.onSearchChange}
-              placeholder="Search"
-            />
-          </Container>
 
-          <br />
+          <Header as='h1'>List of Patients</Header>
           <Container>
-            <Segment attached="bottom">
-              <Menu.Item>
-                <AddLink />
-                <PatientCSVRead />
-              </Menu.Item>
+            <Segment>
+              <Grid>
+                <Grid.Column floated='left' width={8}>
+                  <Grid.Column width={4}>
+                    <Input
+                      icon="search"
+                      value={searchKey}
+                      onChange={this.onSearchChange}
+                      placeholder="Search Patients"
+                    />
+                  </Grid.Column>
+                </Grid.Column>
+                <Grid.Column floated='right' width={8}>
+                  <Button.Group floated='right'>
+                    <PatientCSVRead />
+                    <Button.Or />
+                    <AddLink />
+                  </Button.Group>
 
-              <Table celled>
+                </Grid.Column>
+              </Grid>
+              <Table celled sortable striped>
                 <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell>Last Name</Table.HeaderCell>
-
-                    <Table.HeaderCell>First Name</Table.HeaderCell>
-
-                    <Table.HeaderCell>Middle Name</Table.HeaderCell>
-
-                    <Table.HeaderCell>Actions</Table.HeaderCell>
+                    {headers}
                   </Table.Row>
                 </Table.Header>
 
                 <Table.Body>{patientTable}</Table.Body>
+                  {
+                    data.length > itemPerPage ?
+                    <PaginationTable
+                      onPageChange={this.handlePaginationChange}
+                      totalPages={totalPages}
+                      activePage={activePage}
+                      fields={fields}
+                    >
+                      {this.props.children}
+                    </PaginationTable>
+                    :
+                    <React.Fragment>
+                    </React.Fragment>
+                  }
               </Table>
             </Segment>
           </Container>
-        </Container>
       </div>
     );
   }

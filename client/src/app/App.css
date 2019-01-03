@@ -1,6 +1,10 @@
-.ez-main {
+.main {
   margin-top: 3em !important;
   margin-bottom: 5em;
+}
+
+.body {
+  margin-bottom: 5em !important;
 }
 
 .dimmed.dimmable > ui.modals.dimmer.visible {

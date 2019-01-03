@@ -78,7 +78,7 @@ class AddPatient extends Component {
 
     return (
       <span>
-        <Modal dimmer={dimmer} open={open} onClose={this.close}>
+        <Modal dimmer={dimmer} open={open} onClose={this.close} closeOnDimmerClick={false}>
           <Modal.Header>Add Patient</Modal.Header>
           <Modal.Content>
             <Form>
@@ -172,7 +172,7 @@ class AddPatient extends Component {
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Link to="/app/patients/" className="ui button negative">
+            <Link to="/app/patients" className="ui button negative">
               Cancel
             </Link>
             <Button onClick={this.onAdd} positive>
