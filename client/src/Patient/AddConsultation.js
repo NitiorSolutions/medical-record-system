@@ -89,6 +89,7 @@ class AddConsultation extends Component {
   close = () => this.setState({ open: false });
 
   componentDidMount() {
+    console.log(this.props)
     this.getProcedures();
   }
 
@@ -105,7 +106,7 @@ class AddConsultation extends Component {
     return (
       <span>
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
-          <Modal.Header>Add Consultation to</Modal.Header>
+          <Modal.Header>Add Consultation to {this.props.location.state.patient.firstName} {this.props.location.state.patient.lastName}</Modal.Header>
           <Modal.Content>
             <Modal.Description>
               <Form>
