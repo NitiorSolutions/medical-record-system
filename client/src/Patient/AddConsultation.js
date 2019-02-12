@@ -16,7 +16,8 @@ class AddConsultation extends Component {
     this.state = {
       open: true,
       date: "",
-      price: 0,
+      payment: 0,
+      balance: 0,
       remarks: "",
       patientId: "",
       procedureId: "",
@@ -43,7 +44,8 @@ class AddConsultation extends Component {
 
     const newConsultation = {
       date: this.state.date,
-      price: parseInt(this.state.price, 10),
+      payment: parseInt(this.state.payment, 10),
+      balance: parseInt(this.state.balance, 10),
       remarks: this.state.remarks,
       patientId: fromPatient,
       procedureId: this.state.procedureId
@@ -75,8 +77,7 @@ class AddConsultation extends Component {
   handleChange(e, { name, value }) {
     if (name === 'procedureId') {
       const currentProcedure = _.find(this.state.procedures, function (o) { return o.id === value; });
-      console.log(currentProcedure)
-      this.setState({procedureId: value, price: currentProcedure.fee});
+      this.setState({procedureId: value, balance: currentProcedure.fee});
     } else {
       this.setState({
         [name]: value
@@ -128,11 +129,19 @@ class AddConsultation extends Component {
                   />
                   <Form.Input
                     onChange={this.handleChange}
-                    value={this.state.price}
-                    label="Price"
-                    name="price"
+                    value={this.state.payment}
+                    label="Payment"
+                    name="payment"
                     type="text"
                     placeholder="Price"
+                  />
+                  <Form.Input
+                    onChange={this.handleChange}
+                    value={this.state.balance}
+                    label="Balance"
+                    name="balance"
+                    type="text"
+                    placeholder="Balance"
                   />
                 </Form.Group>
                 <Form.Group>

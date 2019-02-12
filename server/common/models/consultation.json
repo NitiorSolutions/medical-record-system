@@ -33,7 +33,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "procedures": {
+      "type": "belongsTo",
+      "model": "Procedure",
+      "foreignKey": "procedureId"
+    }
+  },
   "acls": [
     {
       "accessType": "*",
