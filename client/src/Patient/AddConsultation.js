@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import { Button, Modal, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import find from "lodash/find";
+
+const _ = {
+    find: find
+}
 
 let fromPatient;
 
@@ -13,11 +18,24 @@ class AddConsultation extends Component {
       date: "",
       price: 0,
       remarks: "",
-      patientId: ""
+      patientId: "",
+      procedureId: "",
+      procedures: []
     };
 
     this.onAdd = this.onAdd.bind(this);
+    this.getProcedures = this.getProcedures.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  getProcedures() {
+    axios.get("http://localhost:3001/api/procedures")
+    .then( response => {
+      this.setState({
+    		procedures: response.data
+    	})
+    })
+    .catch(err => console.log(err));
   }
 
   onAdd() {
@@ -27,7 +45,8 @@ class AddConsultation extends Component {
       date: this.state.date,
       price: parseInt(this.state.price, 10),
       remarks: this.state.remarks,
-      patientId: fromPatient
+      patientId: fromPatient,
+      procedureId: this.state.procedureId
     };
 
     axios
@@ -53,22 +72,36 @@ class AddConsultation extends Component {
       });
   }
 
-  handleChange(e) {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
+  handleChange(e, { name, value }) {
+    if (name === 'procedureId') {
+      const currentProcedure = _.find(this.state.procedures, function (o) { return o.id === value; });
+      console.log(currentProcedure)
+      this.setState({procedureId: value, price: currentProcedure.fee});
+    } else {
+      this.setState({
+        [name]: value
+      });
+    }
 
-    this.setState({
-      [name]: value
-    });
   }
 
   show = dimmer => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false });
 
-  render() {
-    const { open, dimmer } = this.state;
+  componentDidMount() {
+    this.getProcedures();
+  }
 
+  render() {
+    const { open, dimmer, procedures } = this.state;
+
+    if(procedures.length === 0 ) return null;
+
+    const optionsProcedure = procedures.map((procedure,index) => {
+      return (
+          { key: procedure.id, value: procedure.id, text: procedure.name }
+      )
+    });
     return (
       <span>
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
@@ -83,7 +116,14 @@ class AddConsultation extends Component {
                     label="Date"
                     name="date"
                     type="date"
-                    ref="date"
+                  />
+                  <Form.Select
+                    onChange={this.handleChange}
+                    value={this.state.procedureId}
+                    options={optionsProcedure}
+                    name="procedureId"
+                    label="Procedure"
+                    search
                   />
                   <Form.Input
                     onChange={this.handleChange}
@@ -92,8 +132,9 @@ class AddConsultation extends Component {
                     name="price"
                     type="text"
                     placeholder="Price"
-                    ref="price"
                   />
+                </Form.Group>
+                <Form.Group>
                   <Form.Input
                     onChange={this.handleChange}
                     value={this.state.remarks}
@@ -101,7 +142,7 @@ class AddConsultation extends Component {
                     name="remarks"
                     type="text"
                     placeholder="Remarks"
-                    ref="remarks"
+                    width={16}
                   />
                 </Form.Group>
               </Form>

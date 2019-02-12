@@ -20,6 +20,10 @@
     "balance": {
       "type": "number"
     },
+    "procedureId": {
+      "type": "String",
+      "required": true
+    },
     "remarks": {
       "type": "string"
     },
