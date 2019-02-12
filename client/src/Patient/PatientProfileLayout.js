@@ -4,7 +4,7 @@ import { Accordion, Icon } from "semantic-ui-react";
 import AddAppointment from "../Account/AddAppointment";
 
 import axios from "axios";
-
+import moment from 'moment';
 //Add
 
 //Deletes
@@ -91,7 +91,7 @@ class PatientProfileLayout extends Component {
   getConsultations() {
     let patientId = this.props.match.params.id;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId + "/consultations")
+      .get("http://localhost:3001/api/patients/" + patientId + "/consultations?filter[include]=procedures")
       .then(response =>
         this.setState({
           consultations: response.data
@@ -139,12 +139,14 @@ class PatientProfileLayout extends Component {
     const { charts } = this.state;
     const { images } = this.state;
     const { prescriptions } = this.state;
-
+    console.log(consultations)
     consultationTable = consultations.map(consultation => {
       return (
         <Table.Row key={consultation.id}>
-          <Table.Cell>{consultation.date}</Table.Cell>
-          <Table.Cell>{consultation.price}</Table.Cell>
+          <Table.Cell>{moment(consultation.date).format('MMM DD, YYYY')}</Table.Cell>
+          <Table.Cell>{consultation.procedures.name}</Table.Cell>
+          <Table.Cell>{consultation.payment}</Table.Cell>
+          <Table.Cell>{consultation.balance}</Table.Cell>
           <Table.Cell>{consultation.remarks}</Table.Cell>
           <Table.Cell>
             <DeleteConsultationLink item={consultation}>
@@ -313,9 +315,13 @@ class PatientProfileLayout extends Component {
                   <Table celled>
                     <Table.Header>
                       <Table.Row>
-                        <Table.HeaderCell>Date Incurred</Table.HeaderCell>
+                        <Table.HeaderCell>Date Consulted</Table.HeaderCell>
+
+                        <Table.HeaderCell>Procedure</Table.HeaderCell>
 
                         <Table.HeaderCell>Payment</Table.HeaderCell>
+
+                        <Table.HeaderCell>Balance</Table.HeaderCell>
 
                         <Table.HeaderCell>Remarks</Table.HeaderCell>
 

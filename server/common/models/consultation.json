@@ -20,6 +20,10 @@
     "balance": {
       "type": "number"
     },
+    "procedureId": {
+      "type": "String",
+      "required": true
+    },
     "remarks": {
       "type": "string"
     },
@@ -29,7 +33,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "procedures": {
+      "type": "belongsTo",
+      "model": "Procedure",
+      "foreignKey": "procedureId"
+    }
+  },
   "acls": [
     {
       "accessType": "*",
