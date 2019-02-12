@@ -4,7 +4,7 @@ import { Accordion, Icon } from "semantic-ui-react";
 import AddAppointment from "../Account/AddAppointment";
 
 import axios from "axios";
-
+import moment from 'moment';
 //Add
 
 //Deletes
@@ -143,7 +143,7 @@ class PatientProfileLayout extends Component {
     consultationTable = consultations.map(consultation => {
       return (
         <Table.Row key={consultation.id}>
-          <Table.Cell>{consultation.date}</Table.Cell>
+          <Table.Cell>{moment(consultation.date).format('MMM DD, YYYY')}</Table.Cell>
           <Table.Cell>{consultation.procedures.name}</Table.Cell>
           <Table.Cell>{consultation.payment}</Table.Cell>
           <Table.Cell>{consultation.balance}</Table.Cell>
