@@ -12,6 +12,8 @@ import {
 import axios from "axios";
 import sortBy from "lodash/sortBy";
 import titleCase from 'title-case';
+import moment from 'moment';
+import Papa from 'papaparse';
 
 import ViewLink from "./ViewLink";
 import AddLink from "./AddLink";
@@ -56,6 +58,9 @@ class PatientTab extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.getPatients = this.getPatients.bind(this);
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
+    this.handleDataSave = this.handleDataSave.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this);
+    this.handleDataChange = this.handleDataChange.bind(this);
   }
 
   isSearched(searchKey) {
@@ -71,14 +76,63 @@ class PatientTab extends Component {
 
   getPatients() {
     axios.get(getPatientQuery).then(response => {
-      const fields = ['lastName', 'firstName', 'middleName', 'actions']
-      this.setState({ data: response.data, fields: fields }, () => {});
+      const fields = ['lastName', 'firstName', 'middleName', 'actions'];
+      this.setState({ data: response.data, fields: fields });
     });
   }
 
   onSearchChange(event) {
     this.setState({ searchKey: event.target.value });
   }
+
+  handleFileChange(file) {
+    Papa.parse(file, {
+      header: true,
+      dynamicTyping: true,
+      skipEmptyLines: true,
+      complete: this.handleDataChange
+    });
+  }
+
+  handleDataChange(results) {
+    this.setState({data: results.data}, this.handleDataSave)
+    console.log("Parsing complete:", results);
+
+  }
+
+  handleDataSave(){
+    // const content = fileReader.result;
+    let parsedPatient = {};
+
+    let i = 0;
+    const { data } = this.state;
+    for (i = 0; i < data.length; i++) {
+      parsedPatient = {
+        firstName: data[i]["firstName"],
+        middleName: data[i]["middleName"],
+        lastName: data[i]["lastName"],
+        sex: data[i]["sex"],
+        birthDate: moment(data[i]["birthDate"]),
+        civilStatus: data[i]["civilStatus"],
+        occupation: data[i]["occupation"],
+        contactNumber: data[i]["contactNumber"],
+        address: data[i]["address"],
+        dateRegistered: moment(data[i]["dateRegistered"]),
+        medicalHistory: data[i]["medicalHistory"],
+        remarks: data[i]["remarks"]
+      };
+
+      axios
+        .request({
+          method: "post",
+          url: "http://localhost:3001/api/patients",
+          data: parsedPatient
+        })
+        .then(response => {})
+        .catch(err => console.log(err));
+        window.location.reload()
+    }
+  };
 
   handlePaginationChange(e, {activePage}){
     this.setState({
@@ -108,7 +162,6 @@ class PatientTab extends Component {
 
   render() {
     const { activePage, itemPerPage, column, direction, data, searchKey, fields } = this.state;
-
     const indexOfLast = activePage * itemPerPage;
     const indexOfFirst = indexOfLast - itemPerPage;
     const totalPages = data.length / itemPerPage;
@@ -116,7 +169,7 @@ class PatientTab extends Component {
 
     patientTable = currentData.filter(this.isSearched(searchKey)).map(patient => {
       return (
-        <Table.Row key={patient.id}>
+        <Table.Row key={patient.contactNumber}>
           <Table.Cell>{patient.lastName}</Table.Cell>
           <Table.Cell>{patient.firstName}</Table.Cell>
           <Table.Cell>{patient.middleName}</Table.Cell>
@@ -184,7 +237,9 @@ class PatientTab extends Component {
                 </Grid.Column>
                 <Grid.Column floated='right' width={8}>
                   <Button.Group floated='right'>
-                    <PatientCSVRead />
+                    <PatientCSVRead
+                      handleFileRead={this.handleFileChange}
+                    />
                     <Button.Or />
                     <AddLink />
                   </Button.Group>
