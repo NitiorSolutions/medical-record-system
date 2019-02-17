@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Menu, Image } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import daniel from "../images/daniel.jpg";
 import axios from "axios";
 
 import Signup from "./Signup";
@@ -40,14 +39,9 @@ class Leftwing extends Component {
     const { activeItem } = this.state;
     return (
       <Menu vertical color="blue">
-        <Menu.Item>
-          <center>
-            <Image src={daniel} size="small" />
-          </center>
-        </Menu.Item>
 
         <Menu.Item>
-          {this.state.accounts.firstName} {this.state.accounts.lastName}
+          <h3>Welcome {this.state.accounts.firstName} {this.state.accounts.lastName}!</h3>
         </Menu.Item>
 
         <Menu.Item>

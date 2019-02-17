@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Header, Image, Card, Grid, Table } from "semantic-ui-react";
+import { Image, Card, Grid, Table } from "semantic-ui-react";
 import { Accordion, Icon } from "semantic-ui-react";
-import AddAppointment from "../Account/AddAppointment";
 
 import axios from "axios";
 import moment from 'moment';
@@ -9,19 +8,15 @@ import moment from 'moment';
 
 //Deletes
 import DeleteConsultationLink from "./DeleteConsultationLink";
-import DeletePrescriptionLink from "./DeletePrescriptionLink";
 import DeleteImageLink from "./DeleteImageLink";
 import DeleteChartLink from "./DeleteChartLink";
 
 import ViewChartLink from "./ViewChartLink";
 
-import matthew from "../images/matthew.png";
-
 //Table variables
 let consultationTable;
 let chartsTable;
 let imagesTable;
-let prescriptionTable;
 
 class PatientProfileLayout extends Component {
   constructor(props) {
@@ -133,13 +128,8 @@ class PatientProfileLayout extends Component {
   }
 
   render() {
-    const { activeIndex } = this.state;
-    const consultations = this.state.consultations;
-    const { patient } = this.state;
-    const { charts } = this.state;
-    const { images } = this.state;
-    const { prescriptions } = this.state;
-    console.log(consultations)
+    const {activeIndex, charts, images, consultations} = this.state;
+
     consultationTable = consultations.map(consultation => {
       return (
         <Table.Row key={consultation.id}>
@@ -172,22 +162,6 @@ class PatientProfileLayout extends Component {
       );
     });
 
-    prescriptionTable = prescriptions.map(prescription => {
-      return (
-        <Table.Row key={prescription.id}>
-          <Table.Cell>{prescription.prescription}</Table.Cell>
-          <Table.Cell>{prescription.date}</Table.Cell>
-          <Table.Cell>
-            <DeletePrescriptionLink item={prescription}>
-              Delete Prescription
-            </DeletePrescriptionLink>
-
-            {prescription.id}
-          </Table.Cell>
-        </Table.Row>
-      );
-    });
-
     imagesTable = images.map(image => {
       return (
         <Card raised key={image.id}>
@@ -201,22 +175,10 @@ class PatientProfileLayout extends Component {
 
     return (
       <div>
-        <Grid columns={2} divided>
-          <Grid.Column width={4}>
-            <Card>
-              <Image src={matthew} />
-              <Header className="centered" />
-              <Card.Content>
-                <Card.Meta />
-
-                <Card.Description>
-                  <AddAppointment patient={patient} />
-                </Card.Description>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
-
-          <Grid.Column width={10}>
+        <h3>Patient Name: {this.state.firstName} {this.state.middleName}{" "}
+        {this.state.lastName}</h3>
+        <Grid>
+          <Grid.Column width={16}>
             <Accordion fluid styled>
               <Accordion.Title
                 active={activeIndex === 0}
@@ -227,11 +189,7 @@ class PatientProfileLayout extends Component {
               </Accordion.Title>
 
               <Accordion.Content active={activeIndex === 0}>
-                <p>
-                  Name: {this.state.firstName} {this.state.middleName}{" "}
-                  {this.state.lastName}
-                </p>
-                <p>Age: {this.state.contactNumber}</p>
+                <p>Birthdate: {moment(this.state.birthdate).format('MMM DD, YYYY')}</p>
                 <p>Address: {this.state.address}</p>
                 <p>Civil Status: {this.state.civilStatus}</p>
                 <p>Occupation: {this.state.occupation}</p>
@@ -243,23 +201,11 @@ class PatientProfileLayout extends Component {
                 index={1}
                 onClick={this.handleClick}
               >
-                <Icon name="dropdown" />Prescription History
+                <Icon name="dropdown" />Dental Images
               </Accordion.Title>
 
               <Accordion.Content active={activeIndex === 1}>
-                <Table celled>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell>Number</Table.HeaderCell>
-
-                      <Table.HeaderCell>Date Procured</Table.HeaderCell>
-
-                      <Table.HeaderCell>Actions</Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
-
-                  <Table.Body>{prescriptionTable}</Table.Body>
-                </Table>
+                <Card.Group itemsPerRow={4}>{imagesTable}</Card.Group>
               </Accordion.Content>
 
               <Accordion.Title
@@ -267,22 +213,10 @@ class PatientProfileLayout extends Component {
                 index={2}
                 onClick={this.handleClick}
               >
-                <Icon name="dropdown" />Dental Images
-              </Accordion.Title>
-
-              <Accordion.Content active={activeIndex === 2}>
-                <Card.Group itemsPerRow={4}>{imagesTable}</Card.Group>
-              </Accordion.Content>
-
-              <Accordion.Title
-                active={activeIndex === 3}
-                index={3}
-                onClick={this.handleClick}
-              >
                 <Icon name="dropdown" />Dental Charts
               </Accordion.Title>
 
-              <Accordion.Content active={activeIndex === 3}>
+              <Accordion.Content active={activeIndex === 2}>
                 <Table celled>
                   <Table.Header>
                     <Table.Row>
@@ -301,14 +235,14 @@ class PatientProfileLayout extends Component {
               </Accordion.Content>
 
               <Accordion.Title
-                active={activeIndex === 4}
-                index={4}
+                active={activeIndex === 3}
+                index={3}
                 onClick={this.handleClick}
               >
                 <Icon name="dropdown" />Consultation History
               </Accordion.Title>
 
-              <Accordion.Content active={activeIndex === 4}>
+              <Accordion.Content active={activeIndex === 3}>
                 <div>
                   <p>Previous negotiations are reflected here</p>
 
