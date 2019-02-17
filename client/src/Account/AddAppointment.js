@@ -9,7 +9,7 @@ class AddAppointment extends Component {
       open: false,
       date: ""
     };
-    
+
     this.handleChange = this.handleChange.bind(this);
     this.handleAppointment = this.handleAppointment.bind(this);
   }
@@ -64,9 +64,9 @@ class AddAppointment extends Component {
 
     return (
       <div>
-        <Button onClick={this.show("blurring")} fluid positive>
+        <span onClick={this.show("blurring")} fluid positive>
           Add Appointment
-        </Button>
+        </span>
 
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>

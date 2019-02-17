@@ -26,7 +26,7 @@ import PatientCSVRead from "./PatientCSVRead";
 import AddChartsLink from "./AddChartLink";
 
 import AddConsultationLink from "./AddConsultationLink";
-import AddPrescriptionLink from "./AddPrescriptionLink";
+import AddAppointment from "../Account/AddAppointment";
 
 import PaginationTable from '../components/PaginationTable/PaginationTable';
 
@@ -195,7 +195,7 @@ class PatientTab extends Component {
                 </Dropdown.Item>
 
                 <Dropdown.Item>
-                  <AddPrescriptionLink item={patient} />
+                  <AddAppointment patient={patient} />
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
