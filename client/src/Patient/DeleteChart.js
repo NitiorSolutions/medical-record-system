@@ -52,7 +52,7 @@ class DeleteChart extends Component {
     let chartId = this.props.match.params.id;
     const url = process.env.REACT_APP_URL+'/charts/' + chartId;
     axios
-      .get("url" + chartId)
+      .get(url)
       .then(response => this.setState({ details: response.data }));
   }
 

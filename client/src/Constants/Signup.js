@@ -70,7 +70,7 @@ class Signup extends Component {
   render() {
     const { open, dimmer } = this.state;
     return (
-      <Modal trigger={<a onClick={this.show("blurring")} > Create a User</a>} dimmer={dimmer} open={open} onClose={this.close}>
+      <Modal trigger={<span onClick={this.show("blurring")} > Create a User</span>} dimmer={dimmer} open={open} onClose={this.close}>
         <Modal.Header>Create User</Modal.Header>
         <Modal.Content>
           <Form>
