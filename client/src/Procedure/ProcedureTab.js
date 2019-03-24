@@ -21,7 +21,7 @@ import titleCase from 'title-case';
 
 import PaginationTable from '../components/PaginationTable/PaginationTable';
 
-const getProcedureQuery = "http://localhost:3001/api/Procedures";
+const getProcedureQuery = process.env.REACT_APP_URL+'/procedures';
 
 const _ = {
     sortBy: sortBy

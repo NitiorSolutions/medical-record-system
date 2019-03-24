@@ -24,11 +24,11 @@ const MedicineCSVRead = () => {
         brandName: temp2[0],
         quantity: parseInt(temp2[2], 10)
       };
-
+      const url = process.env.REACT_APP_URL+'/medicines';
       axios
         .request({
           method: "post",
-          url: "http://localhost:3001/api/medicines/",
+          url: url,
           data: parsedMedicine
         })
         .then(response => {});

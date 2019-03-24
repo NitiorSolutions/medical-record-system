@@ -64,8 +64,9 @@ class PatientProfileLayout extends Component {
 
   getPatient() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId)
+      .get(url)
       .then(response =>
         this.setState({
           id: response.data.id,
@@ -85,8 +86,9 @@ class PatientProfileLayout extends Component {
 
   getConsultations() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId + "/consultations?filter[include]=procedures")
+      .get(url + "/consultations?filter[include]=procedures")
       .then(response =>
         this.setState({
           consultations: response.data
@@ -96,8 +98,9 @@ class PatientProfileLayout extends Component {
 
   getCharts() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId + "/charts")
+      .get(url + "/charts")
       .then(response =>
         this.setState({
           charts: response.data
@@ -107,8 +110,9 @@ class PatientProfileLayout extends Component {
 
   getImages() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId + "/images")
+      .get(url + "/images")
       .then(response =>
         this.setState({
           images: response.data
@@ -118,8 +122,9 @@ class PatientProfileLayout extends Component {
 
   getPrescriptions() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId + "/prescriptions")
+      .get(url + "/prescriptions")
       .then(response =>
         this.setState({
           prescriptions: response.data

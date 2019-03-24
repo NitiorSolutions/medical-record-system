@@ -34,11 +34,11 @@ class AddAppointment extends Component {
       lastName: this.props.patient.lastName,
       firstName: this.props.patient.firstName
     };
-
+    const url = process.env.REACT_APP_URL+'/appointments';
     axios
       .request({
         method: "post",
-        url: "http://localhost:3001/api/appointments/",
+        url: url,
         data: newAppointment
       })
       .then(response => {
@@ -48,10 +48,10 @@ class AddAppointment extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
       });

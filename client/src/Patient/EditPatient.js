@@ -49,11 +49,11 @@ class EditPatient extends Component {
       address: this.state.address,
       contactNumber: this.state.contactNumber
     };
-
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
       .request({
         method: "put",
-        url: "http://localhost:3001/api/patients/" + patientId,
+        url: url,
         data: editedPatient
       })
       .then(response => {
@@ -64,10 +64,10 @@ class EditPatient extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
 
@@ -77,8 +77,9 @@ class EditPatient extends Component {
 
   getPatient() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId)
+      .get(url)
       .then(response =>
         this.setState({
           id: response.data.id,

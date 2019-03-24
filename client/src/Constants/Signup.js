@@ -45,11 +45,11 @@ class Signup extends Component {
       isAdmin: false,
       isVerified: true
     };
-
+    const url = process.env.REACT_APP_URL+'/Accounts';
     axios
       .request({
         method: "post",
-        url: "http://localhost:3001/api/Accounts/",
+        url: url,
         data: newAccount
       })
       .then(response => {});

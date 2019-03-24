@@ -32,7 +32,8 @@ class Signin extends Component {
       password: this.state.password
     };
     //Get User
-    axios.get("http://localhost:3001/api/Accounts").then(response => {
+    const url = process.env.REACT_APP_URL+'/Accounts';
+    axios.get(url).then(response => {
       var i = 0;
       for (i = 0; i < response.data.length; i++) {
         if (userData.email === response.data[i].userName) {

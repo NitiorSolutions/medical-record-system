@@ -38,11 +38,11 @@ class EditMedicine extends Component {
       brandName: this.state.brandName,
       quantity: parseInt(this.state.quantity, 10)
     };
-
+    const url = process.env.REACT_APP_URL+'/medicines/' + medicineId;
     axios
       .request({
         method: "put",
-        url: "http://localhost:3001/api/medicines/" + medicineId,
+        url: url,
         data: editedMedicine
       })
       .then(response => {
@@ -53,10 +53,10 @@ class EditMedicine extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
 
@@ -66,8 +66,9 @@ class EditMedicine extends Component {
 
   getMedicine() {
     let medicineId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/medicines/' + medicineId;
     axios
-      .get("http://localhost:3001/api/medicines/" + medicineId)
+      .get(url)
       .then(response =>
         this.setState({
           id: response.data.id,

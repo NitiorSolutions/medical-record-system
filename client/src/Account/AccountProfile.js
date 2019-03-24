@@ -7,8 +7,8 @@ import DeleteAppointmentLink from "./DeleteAppointmentLink";
 
 let appointmentsTable, logsTable;
 
-const getAppointmentsQuery = "http://localhost:3001/api/Appointments";
-const getLogsQuery = "http://localhost:3001/api/Logs";
+const getAppointmentsQuery = process.env.REACT_APP_URL+'/Appointments';
+const getLogsQuery = process.env.REACT_APP_URL+'/Logs';
 
 class AccountProfile extends Component {
   constructor(props) {

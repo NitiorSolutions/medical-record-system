@@ -30,7 +30,8 @@ import AddAppointment from "../Account/AddAppointment";
 
 import PaginationTable from '../components/PaginationTable/PaginationTable';
 
-const getPatientQuery = "http://localhost:3001/api/Patients";
+const getPatientQuery = process.env.REACT_APP_URL+'/patients';
+
 
 const _ = {
     sortBy: sortBy
@@ -121,11 +122,11 @@ class PatientTab extends Component {
         medicalHistory: data[i]["medicalHistory"],
         remarks: data[i]["remarks"]
       };
-
+      const url = process.env.REACT_APP_URL+'/patients';
       axios
         .request({
           method: "post",
-          url: "http://localhost:3001/api/patients",
+          url: url,
           data: parsedPatient
         })
         .then(response => {})

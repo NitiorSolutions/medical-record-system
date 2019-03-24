@@ -28,8 +28,9 @@ class DeleteProcedure extends Component {
 
   onDelete() {
     let procedureId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/procedures/' + procedureId;
     axios
-      .delete("http://localhost:3001/api/procedures/" + procedureId)
+      .delete(url)
       .then(reponse => {
         //Add to logs
         const currentDate = new Date();
@@ -38,10 +39,10 @@ class DeleteProcedure extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
         this.props.history.push("/app/procedures");
@@ -50,8 +51,9 @@ class DeleteProcedure extends Component {
 
   getProcedure() {
     let procedureId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/procedures/' + procedureId;
     axios
-      .get("http://localhost:3001/api/procedures/" + procedureId)
+      .get(url)
       .then(response => this.setState({ details: response.data }));
   }
 

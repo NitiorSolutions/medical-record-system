@@ -35,11 +35,11 @@ class AddPatient extends Component {
       address: this.state.address,
       contactNumber: this.state.contactNumber
     };
-
+    const url = process.env.REACT_APP_URL+'/patients';
     axios
       .request({
         method: "post",
-        url: "http://localhost:3001/api/patients/",
+        url: url,
         data: newPatient
       })
       .then(response => {
@@ -49,10 +49,10 @@ class AddPatient extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
 

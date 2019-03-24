@@ -28,30 +28,10 @@ class PatientProfile extends Component {
       address: "",
       contactNumber: ""
     };
-
-    this.getPatient = this.getPatient.bind(this);
   }
 
   componentWillMount() {
     this.getPatient();
-  }
-
-  getPatient() {
-    // let patientId = this.props.item.id;
-    // axios.get("http://localhost:3001/api/patients/" + patientId).then( response =>
-    // 	this.setState({
-    // 		id: response.data.firstName,
-    // 		firstName: response.data.firstName,
-    // 		middleName: response.data.middleName,
-    // 		lastName: response.data.lastName,
-    // 		age: response.data.age,
-    // 		sex: response.data.firstName,
-    // 		civilStatus: response.data.firstName,
-    // 		occupation: response.data.occupation,
-    // 		address: response.data.address,
-    // 		contactNumber: response.data.contactNumber,
-    // 	})
-    // )
   }
 
   render() {
