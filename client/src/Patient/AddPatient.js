@@ -1,7 +1,21 @@
 import React, { Component } from "react";
-import { Button, Modal, Form } from "semantic-ui-react";
+import { Button, Modal, Form, Select } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
+const optionsGender = [
+  { key: 'm', text: 'Male', value: 'Male' },
+  { key: 'f', text: 'Female', value: 'Female' },
+  { key: 'n', text: 'Not Specified', value: 'Not Specified' }
+];
+
+const optionsCivilStatus = [
+  { key: 's', text: 'Single', value: 'Single' },
+  { key: 'm', text: 'Married', value: 'Married' },
+  { key: 'w', text: 'Widowed', value: 'Widowed' },
+  { key: 'se', text: 'Separated', value: 'Separated' },
+  { key: 'd', text: 'Divorced', value: 'Divorced' }
+];
 
 class AddPatient extends Component {
   constructor(props) {
@@ -11,16 +25,19 @@ class AddPatient extends Component {
       firstName: "",
       middleName: "",
       lastName: "",
-      age: 0,
+      birthdate: "",
       sex: "",
       civilStatus: "",
       occupation: "",
       address: "",
-      contactNumber: ""
+      contactNumber: "",
+      remarks: "",
+      medicalHistory: "",
+      dateRegistered: ""
     };
 
     this.onAdd = this.onAdd.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
   onAdd() {
@@ -28,12 +45,15 @@ class AddPatient extends Component {
       firstName: this.state.firstName,
       middleName: this.state.middleName,
       lastName: this.state.lastName,
-      age: parseInt(this.state.age, 10),
+      birthdate: this.state.birthdate,
       sex: this.state.sex,
       civilStatus: this.state.civilStatus,
       occupation: this.state.occupation,
       address: this.state.address,
-      contactNumber: this.state.contactNumber
+      contactNumber: this.state.contactNumber,
+      remarks: this.state.remarks,
+      medicalHistory: this.state.medicalHistory,
+      dateRegistered: this.state.dateRegistered
     };
     const url = process.env.REACT_APP_URL+'/patients';
     axios
@@ -60,22 +80,25 @@ class AddPatient extends Component {
       });
   }
 
-  handleChange(e) {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
+  // handleChange(e) {
+  //   const target = e.target;
+  //   const value = target.value;
+  //   const name = target.name;
+  //   console.log(name)
+  //   console.log(value)
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // }
 
-    this.setState({
-      [name]: value
-    });
-  }
+  handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   show = dimmer => () => this.setState({ dimmer, open: true });
   close = () => this.setState({ open: false });
 
   render() {
     const { open, dimmer } = this.state;
-
+    console.log(this.state.sex);
     return (
       <span>
         <Modal dimmer={dimmer} open={open} onClose={this.close} closeOnDimmerClick={false}>
@@ -112,30 +135,30 @@ class AddPatient extends Component {
                 />
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group widths="equal">
                 <Form.Input
                   onChange={this.handleChange}
-                  value={this.state.age}
-                  name="age"
-                  type="text"
-                  label="Age"
-                  placeholder="Age"
+                  value={this.state.birthdate}
+                  label="Birthdate"
+                  name="birthdate"
+                  type="date"
                 />
-                <Form.Input
+              <Form.Field
                   onChange={this.handleChange}
                   value={this.state.sex}
+                  control={Select}
+                  label="Gender"
+                  placeholder="Gender"
                   name="sex"
-                  type="text"
-                  label="Sex"
-                  placeholder="Sex"
+                  options={optionsGender}
                 />
-                <Form.Input
+                <Form.Select
                   onChange={this.handleChange}
                   value={this.state.civilStatus}
-                  name="civilStatus"
-                  type="text"
                   label="Civil Status"
                   placeholder="Civil Status"
+                  name="civilStatus"
+                  options={optionsCivilStatus}
                 />
               </Form.Group>
 
@@ -158,6 +181,13 @@ class AddPatient extends Component {
                   label="Contact Number"
                   placeholder="Contact Number"
                 />
+                <Form.Input
+                  onChange={this.handleChange}
+                  value={this.state.dateRegistered}
+                  label="Date Registered"
+                  name="dateRegistered"
+                  type="date"
+                />
               </Form.Group>
 
               <Form.Input
@@ -168,6 +198,24 @@ class AddPatient extends Component {
                 fluid
                 label="Address"
                 placeholder="Address"
+              />
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.medicalHistory}
+                name="medicalHistory"
+                type="text"
+                fluid
+                label="Medical History"
+                placeholder="Medical History"
+              />
+              <Form.Input
+                onChange={this.handleChange}
+                value={this.state.remarks}
+                name="remarks"
+                type="text"
+                fluid
+                label="Remarks"
+                placeholder="Remarks"
               />
             </Form>
           </Modal.Content>
