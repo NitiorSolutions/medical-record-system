@@ -165,10 +165,12 @@ class PatientTab extends Component {
     const { activePage, itemPerPage, column, direction, data, searchKey, fields } = this.state;
     const indexOfLast = activePage * itemPerPage;
     const indexOfFirst = indexOfLast - itemPerPage;
-    const totalPages = data.length / itemPerPage;
-    let currentData = data.slice(indexOfFirst, indexOfLast);
+    const totalPages = Math.ceil(data.length / itemPerPage);
+    const searchedData = data.filter(this.isSearched(searchKey));
+    let currentData = searchedData.slice(indexOfFirst, indexOfLast);
+    console.log(totalPages)
 
-    patientTable = currentData.filter(this.isSearched(searchKey)).map(patient => {
+    patientTable = currentData.map(patient => {
       return (
         <Table.Row key={patient.contactNumber}>
           <Table.Cell>{patient.lastName}</Table.Cell>
