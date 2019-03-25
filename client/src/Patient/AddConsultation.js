@@ -76,9 +76,11 @@ class AddConsultation extends Component {
   }
 
   handleChange(e, { name, value }) {
-    if (name === 'procedureId') {
+    if (name === 'procedureId'){
+      console.log('pasok dito')
       const currentProcedure = _.find(this.state.procedures, function (o) { return o.id === value; });
-      this.setState({procedureId: value, balance: currentProcedure.fee});
+      console.log(currentProcedure)
+      this.setState({procedureId: value, balance: currentProcedure.price, payment:currentProcedure.price});
     } else {
       this.setState({
         [name]: value

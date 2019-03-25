@@ -21,6 +21,10 @@
       "type": "number",
       "default": 0
     },
+    "price": {
+      "type": "number",
+      "default": 0
+    },
     "active": {
       "type": "boolean",
       "default": true
