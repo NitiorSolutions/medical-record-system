@@ -50,6 +50,14 @@
       "type": "date",
       "required": true
     },
+    "remarks": {
+      "type": "string",
+      "required": true
+    },
+    "medicalHistory": {
+      "type": "string",
+      "required": true
+    },
     "active": {
       "type": "boolean",
       "default": true
