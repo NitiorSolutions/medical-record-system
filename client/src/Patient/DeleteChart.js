@@ -27,8 +27,9 @@ class DeleteChart extends Component {
 
   onDelete() {
     let chartId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/charts/' + chartId;
     axios
-      .delete("http://localhost:3001/api/charts/" + chartId)
+      .delete(url)
       .then(reponse => {
         const currentDate = new Date();
         const newLog = {
@@ -36,10 +37,10 @@ class DeleteChart extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
 
@@ -49,8 +50,9 @@ class DeleteChart extends Component {
 
   getChart() {
     let chartId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/charts/' + chartId;
     axios
-      .get("http://localhost:3001/api/charts/" + chartId)
+      .get(url)
       .then(response => this.setState({ details: response.data }));
   }
 

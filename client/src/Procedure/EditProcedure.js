@@ -37,11 +37,11 @@ class EditProcedure extends Component {
       description: this.state.description,
       price: parseInt(this.state.price, 10)
     };
-
+    const url = process.env.REACT_APP_URL+'/procedures/' + procedureId;
     axios
       .request({
         method: "put",
-        url: "http://localhost:3001/api/procedures/" + procedureId,
+        url: url,
         data: editedProcedure
       })
       .then(response => {
@@ -52,10 +52,10 @@ class EditProcedure extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
         this.props.history.push("/app/procedures");
@@ -64,8 +64,9 @@ class EditProcedure extends Component {
 
   getProcedure() {
     let procedureId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/procedures/' + procedureId;
     axios
-      .get("http://localhost:3001/api/procedures/" + procedureId)
+      .get(url)
       .then(response =>
         this.setState({
           id: response.data.id,

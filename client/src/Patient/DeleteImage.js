@@ -28,9 +28,9 @@ class DeleteImage extends Component {
 
   onDelete() {
     let imageId = this.props.match.params.id;
-
+    const url = process.env.REACT_APP_URL+'/images/' + imageId;
     axios
-      .delete("http://localhost:3001/api/images/" + imageId)
+      .delete(url)
       .then(reponse => {
         const currentDate = new Date();
         const newLog = {
@@ -38,10 +38,10 @@ class DeleteImage extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
 
@@ -51,9 +51,9 @@ class DeleteImage extends Component {
 
   getImage() {
     let imageId = this.props.match.params.id;
-
+    const url = process.env.REACT_APP_URL+'/images/' + imageId;
     axios
-      .get("http://localhost:3001/api/images/" + imageId)
+      .get(url)
       .then(response =>
         this.setState({
           details: response.data,

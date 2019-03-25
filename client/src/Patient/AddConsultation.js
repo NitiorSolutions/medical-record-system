@@ -30,7 +30,8 @@ class AddConsultation extends Component {
   }
 
   getProcedures() {
-    axios.get("http://localhost:3001/api/procedures")
+    const url = process.env.REACT_APP_URL+'/procedures';
+    axios.get(url)
     .then( response => {
       this.setState({
     		procedures: response.data
@@ -50,11 +51,11 @@ class AddConsultation extends Component {
       patientId: fromPatient,
       procedureId: this.state.procedureId
     };
-
+    const url = process.env.REACT_APP_URL+'/consultations';
     axios
       .request({
         method: "post",
-        url: "http://localhost:3001/api/consultations/",
+        url: url,
         data: newConsultation
       })
       .then(response => {
@@ -64,20 +65,22 @@ class AddConsultation extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
-        this.props.history.push("/app/patients/");
+        this.props.history.push("/app/patients");
       });
   }
 
   handleChange(e, { name, value }) {
-    if (name === 'procedureId') {
+    if (name === 'procedureId'){
+      console.log('pasok dito')
       const currentProcedure = _.find(this.state.procedures, function (o) { return o.id === value; });
-      this.setState({procedureId: value, balance: currentProcedure.fee});
+      console.log(currentProcedure)
+      this.setState({procedureId: value, balance: currentProcedure.price, payment:currentProcedure.price});
     } else {
       this.setState({
         [name]: value

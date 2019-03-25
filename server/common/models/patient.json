@@ -22,7 +22,7 @@
       "type": "string",
       "required": true
     },
-    "birthDate": {
+    "birthdate": {
       "type": "date",
       "required": true
     },
@@ -48,6 +48,14 @@
     },
     "dateRegistered": {
       "type": "date",
+      "required": true
+    },
+    "remarks": {
+      "type": "string",
+      "required": true
+    },
+    "medicalHistory": {
+      "type": "string",
       "required": true
     },
     "active": {

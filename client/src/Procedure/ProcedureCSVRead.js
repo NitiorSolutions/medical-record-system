@@ -24,11 +24,11 @@ const ProcedureCSVRead = () => {
         description: temp2[1],
         price: parseInt(temp2[2], 10)
       };
-
+      const url = process.env.REACT_APP_URL+'/procedures';
       axios
         .request({
           method: "post",
-          url: "http://localhost:3001/api/procedures/",
+          url: url,
           data: parsedProcedure
         })
         .then(response => {});

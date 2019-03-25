@@ -29,7 +29,8 @@ class ViewChart extends Component {
 
   getChart() {
     let chartId = this.props.match.params.id;
-    axios.get("http://localhost:3001/api/charts/" + chartId).then(response =>
+    const url = process.env.REACT_APP_URL+'/charts/' + chartId;
+    axios.get(url).then(response =>
       this.setState({
         upperteeth: response.data.upperteeth,
         lowerteeth: response.data.lowerteeth,

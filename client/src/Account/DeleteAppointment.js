@@ -27,8 +27,9 @@ class DeleteAppointment extends Component {
 
   onDelete() {
     let appointmentId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/appointments/'+appointmentId;
     axios
-      .delete("http://localhost:3001/api/appointments/" + appointmentId)
+      .delete(url)
       .then(response => {
         const currentDate = new Date();
         const newLog = {
@@ -36,10 +37,10 @@ class DeleteAppointment extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
         this.props.history.push("/app/profile");
@@ -48,8 +49,9 @@ class DeleteAppointment extends Component {
 
   getAppointment() {
     let appointmentId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/appointments/'+appointmentId;
     axios
-      .get("http://localhost:3001/api/appointments/" + appointmentId)
+      .get(url)
       .then(response => this.setState({ details: response.data }));
   }
 

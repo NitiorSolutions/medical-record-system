@@ -21,7 +21,7 @@ import titleCase from 'title-case';
 
 import PaginationTable from '../components/PaginationTable/PaginationTable';
 
-const getMedicineQuery = "http://localhost:3001/api/Medicines";
+const getMedicineQuery = process.env.REACT_APP_URL+'/medicines';;
 
 const _ = {
     sortBy: sortBy

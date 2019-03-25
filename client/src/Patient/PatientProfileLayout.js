@@ -27,7 +27,7 @@ class PatientProfileLayout extends Component {
       firstName: "",
       middleName: "",
       lastName: "",
-      age: 0,
+      birthdate: "",
       sex: "",
       civilStatus: "",
       occupation: "",
@@ -64,15 +64,16 @@ class PatientProfileLayout extends Component {
 
   getPatient() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId)
+      .get(url)
       .then(response =>
         this.setState({
           id: response.data.id,
           firstName: response.data.firstName,
           middleName: response.data.middleName,
           lastName: response.data.lastName,
-          age: response.data.age,
+          birthdate: response.data.birthdate,
           sex: response.data.sex,
           civilStatus: response.data.civilStatus,
           occupation: response.data.occupation,
@@ -85,8 +86,9 @@ class PatientProfileLayout extends Component {
 
   getConsultations() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId + "/consultations?filter[include]=procedures")
+      .get(url + "/consultations?filter[include]=procedures")
       .then(response =>
         this.setState({
           consultations: response.data
@@ -96,8 +98,9 @@ class PatientProfileLayout extends Component {
 
   getCharts() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId + "/charts")
+      .get(url + "/charts")
       .then(response =>
         this.setState({
           charts: response.data
@@ -107,8 +110,9 @@ class PatientProfileLayout extends Component {
 
   getImages() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId + "/images")
+      .get(url + "/images")
       .then(response =>
         this.setState({
           images: response.data
@@ -118,8 +122,9 @@ class PatientProfileLayout extends Component {
 
   getPrescriptions() {
     let patientId = this.props.match.params.id;
+    const url = process.env.REACT_APP_URL+'/patients/' + patientId;
     axios
-      .get("http://localhost:3001/api/patients/" + patientId + "/prescriptions")
+      .get(url + "/prescriptions")
       .then(response =>
         this.setState({
           prescriptions: response.data

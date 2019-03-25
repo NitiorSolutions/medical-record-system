@@ -35,8 +35,8 @@ class AccountDetails extends Component {
   componentWillMount() {
     userName = localStorage.getItem("userName");
     password = localStorage.getItem("password");
-
-    axios.get("http://localhost:3001/api/Accounts").then(response => {
+    const url = process.env.REACT_APP_URL+'/Accounts';
+    axios.get(url).then(response => {
       var i = 0;
       for (i = 0; i < response.data.length; i++) {
         if (userName === response.data[i].userName) {
@@ -87,11 +87,11 @@ class AccountDetails extends Component {
     };
 
     const getId = this.state.id;
-
+    const url = process.env.REACT_APP_URL+'/Accounts'+getId;
     axios
       .request({
         method: "put",
-        url: "http://localhost:3001/api/Accounts/" + getId,
+        url: url,
         data: editedAccount
       })
       .then(response => {

@@ -23,11 +23,11 @@ class AddProcedure extends Component {
       description: this.state.description,
       price: parseInt(this.state.price, 10)
     };
-
+    const url = process.env.REACT_APP_URL+'/procedures';
     axios
       .request({
         method: "post",
-        url: "http://localhost:3001/api/procedures/",
+        url: url,
         data: newProcedure
       })
       .then(response => {
@@ -38,10 +38,10 @@ class AddProcedure extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
 

@@ -7,7 +7,8 @@ import {
   Dropdown,
   Segment,
   Table,
-  Grid
+  Grid,
+  Loader
 } from "semantic-ui-react";
 import axios from "axios";
 import sortBy from "lodash/sortBy";
@@ -30,7 +31,8 @@ import AddAppointment from "../Account/AddAppointment";
 
 import PaginationTable from '../components/PaginationTable/PaginationTable';
 
-const getPatientQuery = "http://localhost:3001/api/Patients";
+const getPatientQuery = process.env.REACT_APP_URL+'/patients';
+
 
 const _ = {
     sortBy: sortBy
@@ -53,7 +55,8 @@ class PatientTab extends Component {
       itemPerPage: 8,
       selectedIndex: 0,
       column: null,
-      direction: null
+      direction: null,
+      loaded: false
     };
     this.onSearchChange = this.onSearchChange.bind(this);
     this.getPatients = this.getPatients.bind(this);
@@ -75,9 +78,10 @@ class PatientTab extends Component {
   }
 
   getPatients() {
-    axios.get(getPatientQuery).then(response => {
+    axios.get(getPatientQuery)
+    .then(response => {
       const fields = ['lastName', 'firstName', 'middleName', 'actions'];
-      this.setState({ data: response.data, fields: fields });
+      this.setState({ data: response.data, fields: fields, loaded: true });
     });
   }
 
@@ -121,11 +125,11 @@ class PatientTab extends Component {
         medicalHistory: data[i]["medicalHistory"],
         remarks: data[i]["remarks"]
       };
-
+      const url = process.env.REACT_APP_URL+'/patients';
       axios
         .request({
           method: "post",
-          url: "http://localhost:3001/api/patients",
+          url: url,
           data: parsedPatient
         })
         .then(response => {})
@@ -161,13 +165,14 @@ class PatientTab extends Component {
   }
 
   render() {
-    const { activePage, itemPerPage, column, direction, data, searchKey, fields } = this.state;
+    const { activePage, itemPerPage, column, direction, data, searchKey, fields, loaded } = this.state;
     const indexOfLast = activePage * itemPerPage;
     const indexOfFirst = indexOfLast - itemPerPage;
-    const totalPages = data.length / itemPerPage;
-    let currentData = data.slice(indexOfFirst, indexOfLast);
+    const totalPages = Math.ceil(data.length / itemPerPage);
+    const searchedData = data.filter(this.isSearched(searchKey));
+    let currentData = searchedData.slice(indexOfFirst, indexOfLast);
 
-    patientTable = currentData.filter(this.isSearched(searchKey)).map(patient => {
+    patientTable = currentData.map(patient => {
       return (
         <Table.Row key={patient.contactNumber}>
           <Table.Cell>{patient.lastName}</Table.Cell>
@@ -246,29 +251,35 @@ class PatientTab extends Component {
 
                 </Grid.Column>
               </Grid>
-              <Table celled sortable striped>
-                <Table.Header>
-                  <Table.Row>
-                    {headers}
-                  </Table.Row>
-                </Table.Header>
+              {
+                loaded ?
+                <Table celled sortable striped>
+                  <Table.Header>
+                    <Table.Row>
+                      {headers}
+                    </Table.Row>
+                  </Table.Header>
 
-                <Table.Body>{patientTable}</Table.Body>
-                  {
-                    data.length > itemPerPage ?
-                    <PaginationTable
-                      onPageChange={this.handlePaginationChange}
-                      totalPages={totalPages}
-                      activePage={activePage}
-                      fields={fields}
-                    >
-                      {this.props.children}
-                    </PaginationTable>
-                    :
-                    <React.Fragment>
-                    </React.Fragment>
-                  }
-              </Table>
+                  <Table.Body>{patientTable}</Table.Body>
+                    {
+                      data.length > itemPerPage ?
+                      <PaginationTable
+                        onPageChange={this.handlePaginationChange}
+                        totalPages={totalPages}
+                        activePage={activePage}
+                        fields={fields}
+                      >
+                        {this.props.children}
+                      </PaginationTable>
+                      :
+                      <React.Fragment>
+                      </React.Fragment>
+                    }
+                </Table>
+                :
+                <Loader active inline='centered' />
+              }
+
             </Segment>
           </Container>
       </div>

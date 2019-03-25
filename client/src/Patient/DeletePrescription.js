@@ -28,9 +28,9 @@ class DeletePrescription extends Component {
 
   onDelete() {
     let prescriptionId = this.props.match.params.id;
-
+    const url = process.env.REACT_APP_URL+'/prescriptions/' + prescriptionId;
     axios
-      .delete("http://localhost:3001/api/prescriptions/" + prescriptionId)
+      .delete(url)
       .then(response => {
         const currentDate = new Date();
         const newLog = {
@@ -42,10 +42,10 @@ class DeletePrescription extends Component {
           date: currentDate,
           user: localStorage.userName
         };
-
+        const url2 = process.env.REACT_APP_URL+'/logs';
         axios.request({
           method: "post",
-          url: "http://localhost:3001/api/logs/",
+          url: url2,
           data: newLog
         });
 
@@ -55,9 +55,9 @@ class DeletePrescription extends Component {
 
   getPrescription() {
     let prescriptionId = this.props.match.params.id;
-
+    const url = process.env.REACT_APP_URL+'/prescriptions/' + prescriptionId;
     axios
-      .get("http://localhost:3001/api/prescriptions/" + prescriptionId)
+      .get(url)
       .then(response =>
         this.setState({
           details: response.data,
