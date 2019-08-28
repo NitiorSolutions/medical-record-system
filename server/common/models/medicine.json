@@ -1,0 +1,37 @@
+{
+  "name": "Medicine",
+  "plural": "Medicines",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Timestamp": {}
+  },
+  "properties": {
+    "genericName": {
+      "type": "string",
+      "required": true
+    },
+    "brandName": {
+      "type": "string",
+      "required": true
+    },
+    "quantity": {
+      "type": "number",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

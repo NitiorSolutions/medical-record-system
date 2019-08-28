@@ -1,0 +1,20 @@
+{
+  "name": "medical-record-system",
+  "version": "0.0.1",
+  "description": "Medical Record System",
+  "dependencies": {
+    "foreman": "^2.0.0",
+    "nodemon": "^1.12.1",
+    "semantic-ui-react": "^0.75.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nf start -p 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EzSolution/medical-record-system.git"
+  },
+  "author": "Roinand Aguila",
+  "license": "UNLICENSED"
+}

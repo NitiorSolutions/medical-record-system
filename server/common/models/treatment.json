@@ -1,0 +1,44 @@
+{
+  "name": "Treatment",
+  "plural": "Treatments",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Timestamp": {}
+  },
+  "properties": {
+    "complaint": {
+      "type": "string",
+      "required": true
+    },
+    "toothNumber": {
+      "type": "number"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "balance": {
+      "type": "number"
+    },
+    "remarks": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "procedures": {
+      "type": "hasOne",
+      "model": "Procedure",
+      "foreignKey": "treatmentId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

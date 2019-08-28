@@ -1,0 +1,79 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db",
+    "public": true
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": true
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": true
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Medicine": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Procedure": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Patient": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Consultation": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Chart": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Image": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Account": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Prescription": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Appointment": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Log": {
+    "dataSource": "db",
+    "public": true
+  }
+}

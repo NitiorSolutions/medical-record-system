@@ -1,0 +1,35 @@
+{
+  "name": "Prescription",
+  "plural": "Prescriptions",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Timestamp": {}
+  },
+  "properties": {
+    "quantity": {
+      "type": "number",
+      "required": true
+    },
+    "instruction": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "medicines": {
+      "type": "hasOne",
+      "model": "Medicine",
+      "foreignKey": "prescriptionId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

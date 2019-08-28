@@ -1,0 +1,115 @@
+{
+  "name": "Patient",
+  "plural": "Patients",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Timestamp": {}
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "middleName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "birthdate": {
+      "type": "date",
+      "required": true
+    },
+    "sex": {
+      "type": "string",
+      "required": true
+    },
+    "civilStatus": {
+      "type": "string",
+      "required": true
+    },
+    "occupation": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "contactNumber": {
+      "type": "string",
+      "required": true
+    },
+    "dateRegistered": {
+      "type": "date",
+      "required": true
+    },
+    "remarks": {
+      "type": "string",
+      "required": true
+    },
+    "medicalHistory": {
+      "type": "string",
+      "required": true
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "consultations": {
+      "type": "hasMany",
+      "model": "Consultation",
+      "foreignKey": "patientId"
+    },
+    "treatments": {
+      "type": "hasMany",
+      "model": "Treatment",
+      "foreignKey": "patientId"
+    },
+    "prescriptions": {
+      "type": "hasMany",
+      "model": "Prescription",
+      "foreignKey": "patientId"
+    },
+    "charts": {
+      "type": "hasMany",
+      "model": "Chart",
+      "foreignKey": "patientId"
+    },
+    "images": {
+      "type": "hasMany",
+      "model": "Image",
+      "foreignKey": "patientId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}
