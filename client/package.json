@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "change-case": "^3.1.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "papaparse": "^4.6.3",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
